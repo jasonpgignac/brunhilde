@@ -1,0 +1,30 @@
+<h1>Editing package test reaction</h1>
+
+<% form_for(@package_test_reaction) do |f| %>
+	<%= f.error_messages %>
+	<div>
+		<table>
+			<tr>
+				<td>Command</td>
+				<td>
+					<%= f.radio_button(:command, "fatalerror")%> FatalError (Throws a fatal error to Brunhilde with the given description)<br />
+					<%= f.radio_button(:command, "log")%> Log (Writes the given description to the log)<br />
+					<%= f.radio_button(:command, "wait")%> Wait (Waits for the given number of seconds)<br />
+					<%= f.radio_button(:command, "repeat")%> Repeat (Executes the rule again from the beginning)<br />
+					<%= f.radio_button(:command, "custom")%> Custom (Executes the file at the given path)
+				</td>
+			</tr>
+			<tr>
+				<td>Parameter</td>
+				<td><%= f.text_area(:parameter)%></td>
+			</tr>
+			<tr>
+				<td>Repetitions</td>
+				<td><%= f.text_field(:repetitions)%></td>
+			</tr>
+		</table>
+	</div>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>

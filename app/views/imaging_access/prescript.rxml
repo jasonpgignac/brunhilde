@@ -1,0 +1,5 @@
+xml.brunhilde_prescript(:id => @macaddress) do 
+  @prescript.each do |line|
+    xml.command(line)
+  end
+end

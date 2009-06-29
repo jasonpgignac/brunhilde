@@ -1,0 +1,5 @@
+xml.brunhilde_postscript(:id => @macaddress) do 
+  @postscript.each do |line|
+    xml.command(line)
+  end
+end

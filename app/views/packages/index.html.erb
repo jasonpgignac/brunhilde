@@ -1,0 +1,28 @@
+<h1>Listing packages</h1>
+
+<table>
+  	<tr>
+		<td>Name</td>
+		<td>Licensed</td>
+		<td>Stage</td>
+		<td>Source Path</td>
+		<td>Executable</td>
+  	</tr>
+
+	<% for package in @packages %>
+  		<tr>
+			<td><%= package.name %></td>
+			<td><%= package.licensed %></td>
+			<td><%= package.deployment_stage %></td>
+			<td><%= package.source_path %></td>
+			<td><%= package.executable %></td>
+    		<td><%= link_to 'Show', package %></td>
+    		<td><%= link_to 'Edit', edit_package_path(package) %></td>
+    		<td><%= link_to 'Destroy', package, :confirm => 'Are you sure?', :method => :delete %></td>
+  		</tr>
+	<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New package', new_package_path %>

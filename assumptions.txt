@@ -1,0 +1,1 @@
+The MSR during an imaging run will be mounted to drive letter m:\

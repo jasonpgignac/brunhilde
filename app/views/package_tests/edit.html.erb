@@ -1,0 +1,57 @@
+<h1>Editing package test</h1>
+
+<% form_for(@package_test) do |f| %>
+	<%= f.error_messages %>
+	<div>
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><%= f.text_field(:name)%></td>
+			</tr>
+			<tr>
+				<td>Description</td>
+				<td><%= f.text_area(:description)%></td>
+			</tr>
+			<tr>
+				<td>Rule Type</td>
+				<td>
+					<%= f.radio_button(:rule_type, "ExecRunning")%> ExecRunning (Tests if executable is running)<br />
+					<%= f.radio_button(:rule_type, "FileExists")%> FileExists (Tests if a file exists)<br />
+					<%= f.radio_button(:rule_type, "Custom")%> Custom (Executes the file at the given path as a test)
+				</td>
+			</tr>
+			<tr>
+				<td>Parameter</td>
+				<td><%= f.text_field(:rule_parameter)%></td>
+			</tr>
+			<tr>
+				<td>Success Value</td>
+				<td><%= f.text_field(:success_value)%></td>
+			</tr>
+		</table>
+	</div>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+<div>
+	<table>
+		<tr>
+			<td>Action</td>
+			<td>Parameter</td>
+			<td>Repetitions</td>
+		</tr>
+		<% @package_test.package_test_reactions.each do |ptr| %>
+			<tr>
+				<td><%=ptr.command%></td>
+				<td><%=ptr.parameter%></td>
+				<td><%=ptr.repetitions%></td>
+				<td><%= link_to 'Edit', edit_package_test_reaction_path(ptr) %></td>
+	    		<td><%= link_to 'Destroy', package_test_reaction_path(ptr), :confirm => 'Are you sure?', :method => :delete %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+
+<%= link_to 'Show', @package_test %> |
+<%= link_to 'Back', package_tests_path %>

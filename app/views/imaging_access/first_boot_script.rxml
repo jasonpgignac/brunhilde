@@ -1,0 +1,5 @@
+xml.brunhilde_first_boot_script(:id => @macaddress) do 
+  @first_boot_script.each do |line|
+    xml.command(line)
+  end
+end
