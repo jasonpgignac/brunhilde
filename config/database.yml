@@ -15,9 +15,9 @@ test:
   pool: 5
   timeout: 5000
 
-  production:
+production:
     adapter: postgresql
-    database: siegfreud-development
+    database: brunhilde
     username: postgres
     password: lamia6713
     host: localhost
