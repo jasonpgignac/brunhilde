@@ -1,18 +1,21 @@
 <h1>Listing packages</h1>
-
+<% form_tag("packages", :method => 'get') do%>
+	( Search: <%= text_field_tag(:query, @query, :size => 15) %>
+	<%= submit_tag("->")%> )
+<% end %>
 <table>
   	<tr>
-		<td>Name</td>
-		<td>Licensed</td>
-		<td>Stage</td>
-		<td>Source Path</td>
-		<td>Executable</td>
+		<th>Id</th>
+		<th>Name</th>
+		<th>Stage</th>
+		<th>Source Path</th>
+		<th>Executable</th>
   	</tr>
 
 	<% for package in @packages %>
-  		<tr>
+  		<tr class="<%= cycle("even", "odd") %>">
+			<td><%= package.id %></td>
 			<td><%= package.name %></td>
-			<td><%= package.licensed %></td>
 			<td><%= package.deployment_stage %></td>
 			<td><%= package.source_path %></td>
 			<td><%= package.executable %></td>

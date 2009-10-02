@@ -1,0 +1,33 @@
+<h1>New package</h1>
+
+<% form_for([@package, @package_test], :url => package_tests_path(@package)) do |f| %>
+  	<table>
+		<tr>
+			<td>Name</td>
+			<td><%= f.text_field :name%></td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td><%= f.text_area(:description)%></td>
+		</tr>
+		<tr>
+			<td>Rule Type</td>
+			<td>
+				<%= f.radio_button(:rule_type, "ExecRunning", :onclick => 'document.getElementById("param_label").innerHTML = "Executable Name"')%> ExecRunning (Tests if executable is running)<br />
+				<%= f.radio_button(:rule_type, "FileExists", :onclick => 'document.getElementById("param_label").innerHTML = "Path to File"')%> FileExists (Tests if a file exists)<br />
+				<%= f.radio_button(:rule_type, "Custom", :onclick => 'document.getElementById("param_label").innerHTML = "Path to Executable"')%> Custom (Executes the file at the given path as a test)
+			</td>
+		</tr>
+		<tr>
+			<td><%= f.label(:rule_parameter, "", :id => "param_label") %></td>
+			<td><%= text_field(:package_test, :rule_parameter)%></td>
+		</tr>
+		<tr>
+			<td>Success On...</td>
+			<td><%= f.radio_button(:success_value, true)%> True | <%= f.radio_button(:success_value, true)%> False</td>
+		</tr>
+	</table>
+    <%= submit_tag "Create" %>
+<% end %>
+
+<%= link_to 'Back', @package %>

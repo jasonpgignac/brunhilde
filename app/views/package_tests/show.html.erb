@@ -1,0 +1,42 @@
+<h1>Package Test "<%= @package_test.name%>"</h1>
+<h3>From Package <%= @package.name%></h3>
+
+<table>
+		<tr>
+			<td>Description</td>
+			<td><%= @package_test.description %></td>
+		</tr>
+		<tr>
+			<td>Rule Type</td>
+			<td><%= @package_test.rule_type %></td>
+		</tr>
+		<tr>
+			<td>Parameter</td>
+			<td><%= @package_test.rule_parameter%></td>
+		</tr>
+		<tr>
+			<td>Success Value</td>
+			<td><%= @package_test.success_value%></td>
+		</tr>
+</table>
+<table>
+	<tr>
+		<th>Command</th>
+		<th>Parameter</th>
+		<th>#</th>
+	</tr>
+	<% @package_test.package_test_reactions.each do |ptr| %>
+		<tr class="<%= cycle("even", "odd") %>">
+			<td><%=ptr.command %></td>
+			<td><%=ptr.parameter %></td>
+			<td><%=ptr.repetitions %></td>
+			<td><%= link_to 'Edit', edit_package_test_reaction_path(@package, @package_test, ptr) %></td>
+    		<td><%= link_to 'Destroy', package_test_reaction_path(@package, @package_test, ptr), :confirm => 'Are you sure?', :method => :delete %></td>
+		</tr>
+	<% end %>
+</table>	 
+<%= link_to 'New Test Reaction', new_package_test_reaction_path(@package, @package_test)%>
+<br />
+
+<%= link_to 'Edit', edit_package_test_path(@package.id, @package_test.id) %>|
+<%= link_to 'Back', package_path(@package) %>

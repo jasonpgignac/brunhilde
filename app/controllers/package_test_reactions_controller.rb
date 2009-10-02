@@ -1,4 +1,5 @@
 class PackageTestReactionsController < ApplicationController
+  before_filter :atify_package_and_test
   # GET /package_test_reactions
   # GET /package_test_reactions.xml
   def index
@@ -41,12 +42,12 @@ class PackageTestReactionsController < ApplicationController
   # POST /package_test_reactions.xml
   def create
     @package_test_reaction = PackageTestReaction.new(params[:package_test_reaction])
-
+    @package_test_reaction.package_test = @package_test
     respond_to do |format|
       if @package_test_reaction.save
         flash[:notice] = 'PackageTestReaction was successfully created.'
-        format.html { redirect_to(@package_test_reaction) }
-        format.xml  { render :xml => @package_test_reaction, :status => :created, :location => @package_test_reaction }
+        format.html { redirect_to(package_test_path(@package, @package_test)) }
+        format.xml  { render :xml => @package_test_reaction, :status => :created, :location => package_test_reaction_path(@package, @package_test, @package_test_reaction) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @package_test_reaction.errors, :status => :unprocessable_entity }
@@ -62,7 +63,7 @@ class PackageTestReactionsController < ApplicationController
     respond_to do |format|
       if @package_test_reaction.update_attributes(params[:package_test_reaction])
         flash[:notice] = 'PackageTestReaction was successfully updated.'
-        format.html { redirect_to(@package_test_reaction) }
+        format.html { redirect_to(package_test_path(@package, @package_test)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -78,8 +79,14 @@ class PackageTestReactionsController < ApplicationController
     @package_test_reaction.destroy
 
     respond_to do |format|
-      format.html { redirect_to(package_test_reactions_url) }
+      format.html { redirect_to(package_test_path(@package, @package_test)) }
       format.xml  { head :ok }
     end
+  end
+  
+  private
+  def atify_package_and_test
+    @package = Package.find(params[:package_id])
+    @package_test = @package.package_tests.find(params[:test_id])
   end
 end

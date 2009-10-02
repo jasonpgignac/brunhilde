@@ -12,9 +12,8 @@
 			<td><%= ptr.command %></td>
 			<td><%= ptr.parameter %></td>
 			<td><%= ptr.repetitions %></td>
-    		<td><%= link_to 'Show', ptr %></td>
-    		<td><%= link_to 'Edit', edit_package_test_reaction_path(ptr) %></td>
-    		<td><%= link_to 'Destroy', ptr, :confirm => 'Are you sure?', :method => :delete %></td>
+    		<td><%= link_to 'Edit', edit_package_test_reaction_path(@package.id, @package_test.id, ptr.id) %></td>
+    		<td><%= link_to 'Destroy', package_test_reaction_path(@package, @package_test, ptr), :confirm => 'Are you sure?', :method => :delete %></td>
   		</tr>
 	<% end %>
 </table>

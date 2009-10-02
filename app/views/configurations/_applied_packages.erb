@@ -1,0 +1,14 @@
+<ul id="applied-package-list" class="sortable-list">
+	<% @configuration.applied_packages.each do |ap| %>
+		<li id="item_<%= ap.id %>" class="<%= cycle("even", "odd") %>">
+			<%= ap.package.name %>	
+		</li>
+	<% end %>
+</ul>
+<%= sortable_element "applied-package-list", 
+		:url 		=>	{
+							:action => "sort", 
+							:id => @configuration
+						},
+		:complete 	=> visual_effect(:highlight, "applied-package-list")
+%>

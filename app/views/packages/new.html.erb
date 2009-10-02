@@ -4,6 +4,32 @@
   <%= f.error_messages %>
 
   <p>
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><%= f.text_field(:name)%></td>
+			</tr>
+			<tr>
+				<td>Licensed</td>
+				<td><%= f.check_box(:licensed)%></td>
+			</tr>
+			<tr>
+				<td>Stage</td>
+				<td>
+					<%= f.radio_button(:deployment_stage, 0)%> Prescript<br />
+					<%= f.radio_button(:deployment_stage, 1)%> Postscript
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Path</td>
+				<td><%= f.text_field(:source_path)%></td>
+			</tr>
+			<tr>
+				<td>Executable</td>
+				<td><%= f.text_field(:executable)%></td>
+			</tr>
+		</table>
     <%= f.submit "Create" %>
   </p>
 <% end %>

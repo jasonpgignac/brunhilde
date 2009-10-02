@@ -1,8 +1,13 @@
 class PackagesController < ApplicationController
+  
   # GET /packages
   # GET /packages.xml
   def index
-    @packages = Package.find(:all)
+    if params[:query]
+      @packages = Package.search(params[:query])
+    else
+      @packages = Package.find(:all)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,4 +87,6 @@ class PackagesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  
 end

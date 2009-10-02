@@ -1,0 +1,24 @@
+<h1>Listing computers</h1>
+
+<table>
+  <tr>
+    <th>Mac address</th>
+    <th>Name</th>
+    <th>Platform</th>
+  </tr>
+
+<% @computers.each do |computer| %>
+  <tr>
+    <td><%=h computer.mac_address %></td>
+    <td><%=h computer.name %></td>
+    <td><%=h computer.platform %></td>
+    <td><%= link_to 'Show', computer %></td>
+    <td><%= link_to 'Edit', edit_computer_path(computer) %></td>
+    <td><%= link_to 'Destroy', computer, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New computer', new_computer_path %>

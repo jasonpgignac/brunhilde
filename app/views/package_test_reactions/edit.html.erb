@@ -1,21 +1,23 @@
 <h1>Editing package test reaction</h1>
 
-<% form_for(@package_test_reaction) do |f| %>
+<% form_for([@package, @package_test, @package_test_reaction], :url => package_test_reaction_path(@package, @package_test, @package_test_reaction)) do |f| %>
 	<%= f.error_messages %>
 	<div>
 		<table>
 			<tr>
 				<td>Command</td>
 				<td>
-					<%= f.radio_button(:command, "fatalerror")%> FatalError (Throws a fatal error to Brunhilde with the given description)<br />
-					<%= f.radio_button(:command, "log")%> Log (Writes the given description to the log)<br />
-					<%= f.radio_button(:command, "wait")%> Wait (Waits for the given number of seconds)<br />
-					<%= f.radio_button(:command, "repeat")%> Repeat (Executes the rule again from the beginning)<br />
-					<%= f.radio_button(:command, "custom")%> Custom (Executes the file at the given path)
+					<%= f.radio_button(:command, "fatalerror", :onclick => 'document.getElementById("parameter_label").innerHTML = "Error Text";document.getElementById("parameter_label").style.display = "block";document.getElementById("package_test_reaction_parameter").style.display = "block"')%> FatalError (Throws a fatal error to Brunhilde with the given description)<br />
+					<%= f.radio_button(:command, "log", :onclick => 'document.getElementById("parameter_label").innerHTML = "Log Text";document.getElementById("parameter_label").style.display = "block";document.getElementById("package_test_reaction_parameter").style.display = "block"')%> Log (Writes the given description to the log)<br />
+					<%= f.radio_button(:command, "wait", :onclick => 'document.getElementById("parameter_label").innerHTML = "Seconds to Wait";document.getElementById("parameter_label").style.display = "block";document.getElementById("package_test_reaction_parameter").style.display = "block"')%> Wait (Waits for the given number of seconds)<br />
+					<%= f.radio_button(:command, "repeat", :onclick => 'document.getElementById("parameter_label").innerHTML = "No Parameter";document.getElementById("parameter_label").style.display = "none";document.getElementById("package_test_reaction_parameter").style.display = "none"')%> Repeat (Executes the rule again from the beginning)<br />
+					<%= f.radio_button(:command, "custom", :onclick => 'document.getElementById("parameter_label").innerHTML = "Path to file to execute";document.getElementById("parameter_label").style.display = "block";document.getElementById("package_test_reaction_parameter").style.display = "block"')%> Custom (Executes the file at the given path)
 				</td>
 			</tr>
 			<tr>
-				<td>Parameter</td>
+				<td>
+					<%= f.label(:parameter, "", :id => "parameter_label")%>
+				</td>
 				<td><%= f.text_area(:parameter)%></td>
 			</tr>
 			<tr>

@@ -30,25 +30,8 @@
 			</tr>
 		</table>
 	</div>
-	<div>
-		<table>
-			<tr>
-				<td>Name</td>
-				<td>Description</td>
-			</tr>
-			<% @package.package_tests.each do |pt|%>
-				<tr>
-					<td><%= pt.name %></td>
-					<td><%= pt.description %></td>
-					<td><%= link_to 'Edit', edit_package_test_path(pt) %></td>
-		    		<td><%= link_to 'Destroy', package_test_path(pt), :confirm => 'Are you sure?', :method => :delete %></td>
-				</tr>
-			<% end %>
-		</table>
-	</div>
-  <p>
+	
     <%= f.submit "Update" %>
-  </p>
 <% end %>
 
 <%= link_to 'Show', @package %> |

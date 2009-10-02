@@ -1,0 +1,30 @@
+<p>
+  <b>Name:</b>
+  <%=h @configuration.name %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%=h @configuration.notes %>
+</p>
+
+<p>
+	<b>Packages:</b>
+</p>
+<p>
+	<%= link_to_remote("Add Package...", 
+						:url =>	{
+									:action => "add_package", 
+									:id => @configuration
+								})%>
+</p>
+<div id="applied_packages">
+	<%= render :partial => "applied_packages"%>
+</div>
+
+
+<p>
+	<b>Postscript Packages:</b>
+</p>
+<%= link_to 'Edit', edit_configuration_path(@configuration) %> |
+<%= link_to 'Back', configurations_path %>

@@ -1,4 +1,5 @@
 class PackageTestsController < ApplicationController
+  before_filter :atify_package
   # GET /package_tests
   # GET /package_tests.xml
   def index
@@ -13,7 +14,7 @@ class PackageTestsController < ApplicationController
   # GET /package_tests/1
   # GET /package_tests/1.xml
   def show
-    @package = PackageTest.find(params[:id])
+    @package_test = PackageTest.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -41,12 +42,12 @@ class PackageTestsController < ApplicationController
   # POST /package_tests.xml
   def create
     @package_test = PackageTest.new(params[:package_test])
-
+    @package_test.package_id = @package.id
     respond_to do |format|
       if @package_test.save
         flash[:notice] = 'PackageTest was successfully created.'
-        format.html { redirect_to(@package_test) }
-        format.xml  { render :xml => @package_test, :status => :created, :location => @package_test }
+        format.html { redirect_to(package_test_path(@package, @package_test)) }
+        format.xml  { render :xml => @package_test, :status => :created, :location => package_tests_path(@package, @package_test.id) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @package_test.errors, :status => :unprocessable_entity }
@@ -62,7 +63,7 @@ class PackageTestsController < ApplicationController
     respond_to do |format|
       if @package_test.update_attributes(params[:package_test])
         flash[:notice] = 'PackageTest was successfully updated.'
-        format.html { redirect_to(@package_test) }
+        format.html { redirect_to(@package) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -78,9 +79,14 @@ class PackageTestsController < ApplicationController
     @package_test.destroy
 
     respond_to do |format|
-      format.html { redirect_to(package_tests_url) }
+      format.html { redirect_to(@package) }
       format.xml  { head :ok }
     end
   end
 
+  private
+  
+  def atify_package
+    @package = Package.find(params[:package_id])
+  end
 end

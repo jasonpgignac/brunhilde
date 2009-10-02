@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090413213610) do
+ActiveRecord::Schema.define(:version => 20090731142114) do
 
   create_table "ad_computers", :force => true do |t|
     t.string   "remote_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20090413213610) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "platform"
   end
 
   create_table "configurations", :force => true do |t|
@@ -66,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20090413213610) do
     t.string   "command"
     t.string   "parameter"
     t.integer  "repetitions"
-    t.integer  "pacakge_test_id"
+    t.integer  "package_test_id"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -78,8 +79,8 @@ ActiveRecord::Schema.define(:version => 20090413213610) do
     t.string   "description"
     t.string   "rule_type"
     t.string   "rule_parameter"
-    t.boolean  "success_value"
-    t.integer  "position"
+    t.string   "success_value"
+    t.string   "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20090413213610) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "deployment_stage"
+    t.string   "platform"
   end
 
 end

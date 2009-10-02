@@ -1,0 +1,19 @@
+<div style="padding: 5px; height: 200px; width: 300px; background: #FFF">
+	<p style="align: right">
+		<%= link_to_close_redbox("close") %>
+	</p>
+	<div style="height: 190px; overflow: auto">
+		<% form_remote_tag(:url =>	{
+								:action => "add_package", 
+								:id => @configuration.id
+							}) do %>
+			<%unless @packages && @packages.size > 0 %>
+				<%= text_field_tag :query %><br />
+				<%= submit_tag "Search"%>
+			<% else %>
+				<%= select_tag :package_id, options_from_collection_for_select(@packages, 'id', 'name') %><br />
+				<%= submit_tag "Add" %>
+			<% end %>
+		<% end %>
+	</div>
+</div>

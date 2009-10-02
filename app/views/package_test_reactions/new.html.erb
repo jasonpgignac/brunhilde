@@ -1,0 +1,32 @@
+<h1>New package test reaction</h1>
+
+<% form_for([@package, @package_test, @package_test_reaction], :url => package_test_reactions_path(@package, @package_test)) do |f| %>
+	<%= f.error_messages %>
+	<div>
+		<table>
+			<tr>
+				<td>Command</td>
+				<td>
+					<%= f.radio_button(:command, "fatalerror", :onclick => 'document.getElementById("parameter_label").innerHTML = "Error Text";document.getElementById("parameter_label").style.display = "block";document.getElementById("package_test_reaction_parameter").style.display = "block"')%> FatalError (Throws a fatal error to Brunhilde with the given description)<br />
+					<%= f.radio_button(:command, "log", :onclick => 'document.getElementById("parameter_label").innerHTML = "Log Text";document.getElementById("parameter_label").style.display = "block";document.getElementById("package_test_reaction_parameter").style.display = "block"')%> Log (Writes the given description to the log)<br />
+					<%= f.radio_button(:command, "wait", :onclick => 'document.getElementById("parameter_label").innerHTML = "Seconds to Wait";document.getElementById("parameter_label").style.display = "block";document.getElementById("package_test_reaction_parameter").style.display = "block"')%> Wait (Waits for the given number of seconds)<br />
+					<%= f.radio_button(:command, "repeat", :onclick => 'document.getElementById("parameter_label").innerHTML = "No Parameter";document.getElementById("parameter_label").style.display = "none";document.getElementById("package_test_reaction_parameter").style.display = "none"')%> Repeat (Executes the rule again from the beginning)<br />
+					<%= f.radio_button(:command, "custom", :onclick => 'document.getElementById("parameter_label").innerHTML = "Path to file to execute";document.getElementById("parameter_label").style.display = "block";document.getElementById("package_test_reaction_parameter").style.display = "block"')%> Custom (Executes the file at the given path)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= f.label(:parameter, "", :id => "parameter_label")%>
+				</td>
+				<td><%= f.text_area(:parameter)%></td>
+			</tr>
+			<tr>
+				<td>Repetitions</td>
+				<td><%= f.text_field(:repetitions)%></td>
+			</tr>
+		</table>
+	</div>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
