@@ -1,3 +1,4 @@
+require 'csv'
 class Package < ActiveRecord::Base
   has_many  :applied_packages
   has_many  :package_tests, :order => :position

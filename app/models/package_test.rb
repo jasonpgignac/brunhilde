@@ -1,3 +1,4 @@
+require 'csv'
 class PackageTest < ActiveRecord::Base
   belongs_to    :package
   has_many      :package_test_reactions

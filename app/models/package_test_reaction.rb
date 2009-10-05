@@ -1,3 +1,4 @@
+require 'csv'
 class PackageTestReaction < ActiveRecord::Base
   belongs_to    :package_test
   acts_as_list  :scope => :package_test
