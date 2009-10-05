@@ -10,7 +10,6 @@
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
-  # Run "rake -D time" for a list of tasks for finding time zone names. Comment line to use default local time.
   config.time_zone = 'UTC'
 
   # The internationalization framework can be changed to have another default locale (standard is :en) or more load paths.
@@ -43,4 +42,5 @@ Rails::Initializer.run do |config|
   if RAILS_ENV=='production'
     config.action_controller.relative_url_root = "/brunhilde"
   end
+  config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list', :source => 'http://gems.github.com'
 end
