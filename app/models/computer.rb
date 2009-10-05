@@ -7,10 +7,10 @@ class Computer < ActiveRecord::Base
   POSTSCRIPT_PHASE = 1
   
   def postscript
-    if (self.platform = "PC")
+    if (self.platform == "PC")
       pc_postscript_prefix + pc_script_body(POSTSCRIPT_PHASE) + pc_postscript_suffix
-    elsif (self.platform = "Mac")
-      mac_postscript_prefix _ mac_script_body(POSTSCRIPT_PHASE) + mac_postscript_suffix
+    elsif (self.platform == "Mac")
+      mac_postscript_prefix + mac_script_body(POSTSCRIPT_PHASE) + mac_postscript_suffix
     end
   end
   def prescript
