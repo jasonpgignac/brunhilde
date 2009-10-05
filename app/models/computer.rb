@@ -15,9 +15,9 @@ class Computer < ActiveRecord::Base
   end
   def prescript
     if (self.platform == "PC")
-      pc_prescript_prefix + pc_script_body(POSTSCRIPT_PHASE) + pc_prescript_suffix
+      pc_prescript_prefix + pc_script_body(PRESCRIPT_PHASE) + pc_prescript_suffix
     elsif (self.platform == "Mac")
-      mac_header + mac_script_body(POSTSCRIPT_PHASE) + mac_prescript_suffix
+      mac_header + mac_script_body(PRESCRIPT_PHASE) + mac_prescript_suffix
     end
   end
   def packages
