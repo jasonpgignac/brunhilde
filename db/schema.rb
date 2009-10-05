@@ -63,16 +63,6 @@ ActiveRecord::Schema.define(:version => 20090731142114) do
     t.datetime "updated_at"
   end
 
-  create_table "package_test_reactions", :force => true do |t|
-    t.string   "command"
-    t.string   "parameter"
-    t.integer  "repetitions"
-    t.integer  "package_test_id"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "package_tests", :force => true do |t|
     t.integer  "package_id"
     t.string   "name"
