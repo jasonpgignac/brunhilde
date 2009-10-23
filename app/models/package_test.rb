@@ -10,9 +10,8 @@ class PackageTest < ActiveRecord::Base
     return csv_string
   end
   def to_csv
-    sval = success_value ? 1 : 0
     csv_string = String.new
-    csv_string << ["TEST", rule_type, rule_parameter, sval].to_csv
+    csv_string << ["TEST", rule_type, rule_parameter, success_value].to_csv
     return csv_string.sub!("\n", "")
   end
 end 
