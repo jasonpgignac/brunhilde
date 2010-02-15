@@ -5,20 +5,16 @@
 <% end %>
 <table>
   	<tr>
-		<th>Id</th>
 		<th>Name</th>
 		<th>Stage</th>
 		<th>Source Path</th>
-		<th>Executable</th>
   	</tr>
 
 	<% for package in @packages %>
   		<tr class="<%= cycle("even", "odd") %>">
-			<td><%= package.id %></td>
 			<td><%= package.name %></td>
 			<td><%= package.deployment_stage %></td>
 			<td><%= package.source_path %></td>
-			<td><%= package.executable %></td>
     		<td><%= link_to 'Show', package %></td>
     		<td><%= link_to 'Edit', edit_package_path(package) %></td>
     		<td><%= link_to 'Destroy', package, :confirm => 'Are you sure?', :method => :delete %></td>

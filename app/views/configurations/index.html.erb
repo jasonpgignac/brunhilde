@@ -7,7 +7,7 @@
   </tr>
 
 <% @configurations.each do |configuration| %>
-  <tr>
+  <tr class="<%= cycle("even", "odd") %>">
     <td><%=h configuration.name %></td>
     <td><%=h configuration.notes %></td>
     <td><%= link_to 'Show', configuration %></td>

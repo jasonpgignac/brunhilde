@@ -51,7 +51,6 @@ a:hover { color: #fff; background-color:#000; }
   font-size: 12px;
   list-style: square;
 }
-
 ul {
 	cursor: move;
 }
@@ -59,6 +58,7 @@ ul {
 div#main {
 	padding: 15px;
 	background-color: #ECF;
+	width: 800px;
 }
 th {
 	text-align: left;

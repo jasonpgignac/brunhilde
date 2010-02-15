@@ -8,7 +8,7 @@
   </tr>
 
 <% @computers.each do |computer| %>
-  <tr>
+  <tr class="<%= cycle("even", "odd") %>">
     <td><%=h computer.mac_address %></td>
     <td><%=h computer.name %></td>
     <td><%=h computer.platform %></td>
