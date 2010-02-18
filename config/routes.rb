@@ -9,7 +9,6 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   map.resources :package_test_reactions
-
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

@@ -17,6 +17,13 @@
 	<b>Configurations:</b>
 </p>
 <p>
+	<%= link_to_remote("Add Package...", 
+						:url =>	{
+									:action => "add_package", 
+									:id => @computer
+								})%>
+</p>
+<p>
 	<%= link_to_remote("Add Configuration...", 
 						:url =>	{
 									:action => "add_configuration", 

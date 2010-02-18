@@ -85,11 +85,12 @@ class ComputersController < ApplicationController
   
   def sort
     @computer = Computer.find(params[:id])
-    params["applied-configuration-list"].each_with_index do | f, i |
-      pkg = AppliedConfiguration.find(f)
-      pkg.position = i + 1
-      pkg.save
+    buildset = params["applied-configuration-list"].each_with_index do | f,i |
+      c = AppliedConfiguration.find(f)
+      c.position = i
+      c.save
     end
+    
     render :update do |page|
       page.replace_html 'applied_configurations', :partial => 'applied_configurations'
     end
@@ -115,5 +116,42 @@ class ComputersController < ApplicationController
       end
     end
   end
-  
+  def add_package
+    @computer = Computer.find(params[:id])
+    unless(params[:package_id])
+      if(params[:query])
+        @packages = Package.search(params[:query])
+      end
+      render :update do |page|
+        page << "RedBox.showInline('hidden_content_alert')"
+        page.replace_html "hidden_content_alert", :partial => "select_package"
+      end
+    else
+      @package = Package.find(params[:package_id])
+      configuration = Configuration.new(:name => "Package (#{@package.name})")
+      @computer.hosted_configurations << configuration
+      @computer.configurations << configuration
+      configuration.save
+      configuration.packages << @package
+      @package.save
+      flash[:notice]="Package successfully added to end of computer"
+      render :update do |page|
+        page.replace_html 'applied_configurations', :partial => 'applied_configurations'
+        page.replace_html 'flash', :partial => 'shared/flashes'
+        page << "RedBox.close()"
+      end
+    end
+  end
+  def remove_configuration
+    @computer = Computer.find(params[:id])
+    @applied_configuration = AppliedConfiguration.find(params[:applied_configuration_id])
+    if @applied_configuration.configuration.host_computer == @computer
+      @applied_configuration.configuration.destroy
+    else
+      @applied_configuration.destroy
+    end
+    render :update do |page|
+      page.replace_html 'applied_configurations', :partial => 'applied_configurations'
+    end
+  end
 end

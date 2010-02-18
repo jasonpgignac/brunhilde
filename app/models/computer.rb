@@ -1,7 +1,11 @@
 class Computer < ActiveRecord::Base
-  has_many :applied_configurations, :order    => :position 
-  has_many :configurations,         :through  => :applied_configurations,
-                                    :order    => :position
+  has_many :applied_configurations, :order        => :position,
+                                    :dependent    => :destroy
+  has_many :configurations,         :through      => :applied_configurations,
+                                    :order        => :position
+  has_many :hosted_configurations,  :class_name   => "Configuration",
+                                    :foreign_key  => :host_computer_id,
+                                    :dependent    => :destroy
   
   PRESCRIPT_PHASE = 0
   POSTSCRIPT_PHASE = 1

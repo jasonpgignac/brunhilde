@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090731142114) do
+ActiveRecord::Schema.define(:version => 20100216204632) do
 
   create_table "ad_computers", :force => true do |t|
     t.string   "remote_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20090731142114) do
     t.string   "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "host_computer_id"
   end
 
   create_table "content_servers", :force => true do |t|

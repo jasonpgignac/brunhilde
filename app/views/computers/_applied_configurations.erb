@@ -1,7 +1,16 @@
 <ul id="applied-configuration-list" class="sortable-list">
 	<% @computer.applied_configurations.each do |ac| %>
-		<li id="item_<%= ac.id %>" class="<%= cycle("even", "odd") %>", ondblclick=>
-			<%= ac.configuration.name %>	
+		<li id="item_<%= ac.id %>" class="<%= cycle("even", "odd") %>">
+			<td>
+				<%= ac.configuration.name %> 
+				<%= link_to_remote 	'X', 
+									:url => {
+										:action => "remove_configuration",
+										:id => @computer,
+										:applied_configuration_id => ac
+									}, 
+									:confirm => 'Are you sure?'%>
+			</td>	
 		</li>
 	<% end %>
 </ul>
