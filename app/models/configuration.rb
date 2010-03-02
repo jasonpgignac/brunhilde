@@ -5,6 +5,7 @@ class Configuration < ActiveRecord::Base
   has_many  :packages,                :through =>:applied_packages,
                                       :order => :position
   belongs_to :host_computer,          :class_name => "Computer"
+  belongs_to :owner, :class_name => "User"
                                                
   def self.search(query)
      if !query.to_s.strip.empty?

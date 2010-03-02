@@ -2,6 +2,7 @@ require 'csv'
 class Package < ActiveRecord::Base
   has_many  :applied_packages,  :dependent => :destroy
   has_many  :package_tests,     :order => :position
+  belongs_to :owner, :class_name => "User"
   
   def self.search(query)
      if !query.to_s.strip.empty?

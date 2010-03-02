@@ -46,7 +46,7 @@ class PackagesController < ApplicationController
   # POST /packages.xml
   def create
     @package = Package.new(params[:package])
-
+    @package.owner = current_user
     respond_to do |format|
       if @package.save
         flash[:notice] = 'Package was successfully created.'

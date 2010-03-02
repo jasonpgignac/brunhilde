@@ -41,7 +41,7 @@ class ComputersController < ApplicationController
   # POST /computers.xml
   def create
     @computer = Computer.new(params[:computer])
-
+    @computer.owner = current_user
     respond_to do |format|
       if @computer.save
         flash[:notice] = 'Computer was successfully created.'

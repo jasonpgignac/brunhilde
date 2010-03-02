@@ -43,4 +43,5 @@ Rails::Initializer.run do |config|
     config.action_controller.relative_url_root = "/brunhilde"
   end
   config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list', :source => 'http://gems.github.com'
+  config.gem 'authlogic'
 end

@@ -6,6 +6,7 @@ class Computer < ActiveRecord::Base
   has_many :hosted_configurations,  :class_name   => "Configuration",
                                     :foreign_key  => :host_computer_id,
                                     :dependent    => :destroy
+  belongs_to :owner, :class_name => "User"
   
   PRESCRIPT_PHASE = 0
   POSTSCRIPT_PHASE = 1

@@ -41,7 +41,7 @@ class ConfigurationsController < ApplicationController
   # POST /configurations.xml
   def create
     @configuration = Configuration.new(params[:configuration])
-
+    @configuration.owner = current_user
     respond_to do |format|
       if @configuration.save
         flash[:notice] = 'Configuration was successfully created.'
