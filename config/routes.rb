@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
       test.resources :reactions, :controller => :package_test_reactions
     end
   end
+  map.resources :applied_packages # INCOMPLETE - Limit to available functions
   map.resources :package_test_reactions
   map.resources :user_sessions
   map.resources :users
