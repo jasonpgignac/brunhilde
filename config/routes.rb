@@ -1,18 +1,25 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :computers, :collection => { :sort => :post, :add_package => :post }
-
-  map.resources :configurations, :collection => { :sort => :post, :add_package => :post }
-
-  map.resources :packages do |package|
-    package.resources :tests, :controller => :package_tests do |test|
-      test.resources :reactions, :controller => :package_test_reactions
+Brunhilde::Application.routes.draw do |map|
+  resources :computers do
+    collection do
+      post :sort
+      post :add_package
     end
   end
-  map.resources :package_test_reactions
-  map.resources :user_sessions
-  map.resources :users
-  map.login "login", :controller => "user_sessions", :action => "new"
-  map.logout "logout", :controller => "user_sessions", :action => "destroy"
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+
+  resources :configurations do
+    collection do
+      post :sort
+      post :add_package
+    end
+  end
+  resources :packages do
+    resources :tests do
+      resources :reactions
+    end
+  end
+  resources :package_test_reactions
+  resources :user_sessions
+  resources :users
+  match "login" => "user_sessions#new"
+  match "logout" => "user_sessions#destroy"
 end

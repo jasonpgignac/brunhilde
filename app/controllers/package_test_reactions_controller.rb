@@ -1,4 +1,5 @@
 class PackageTestReactionsController < ApplicationController
+  before_filter :set_current_tab
   before_filter :atify_package_and_test
   # GET /package_test_reactions
   # GET /package_test_reactions.xml
@@ -85,6 +86,9 @@ class PackageTestReactionsController < ApplicationController
   end
   
   private
+  def set_current_tab
+    @current_tab = "packages"
+  end
   def atify_package_and_test
     @package = Package.find(params[:package_id])
     @package_test = @package.package_tests.find(params[:test_id])

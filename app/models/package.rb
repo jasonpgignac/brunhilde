@@ -1,7 +1,7 @@
 require 'csv'
 class Package < ActiveRecord::Base
   has_many  :applied_packages,  :dependent => :destroy
-  has_many  :package_tests,     :order => :position
+  has_many  :package_tests
   belongs_to :owner, :class_name => "User"
   
   def self.search(query)

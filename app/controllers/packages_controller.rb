@@ -1,4 +1,5 @@
 class PackagesController < ApplicationController
+  before_filter :set_current_tab
   
   # GET /packages
   # GET /packages.xml
@@ -88,5 +89,8 @@ class PackagesController < ApplicationController
     end
   end
 
-  
+  private
+    def set_current_tab
+      @current_tab = "packages"
+    end
 end

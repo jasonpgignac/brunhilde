@@ -1,4 +1,5 @@
 class ComputersController < ApplicationController
+  before_filter :set_current_tab
   # GET /computers
   # GET /computers.xml
   def index
@@ -154,4 +155,8 @@ class ComputersController < ApplicationController
       page.replace_html 'applied_configurations', :partial => 'applied_configurations'
     end
   end
+  private
+    def set_current_tab
+      @current_tab = "computers"
+    end
 end

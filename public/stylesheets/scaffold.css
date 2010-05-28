@@ -1,15 +1,26 @@
-body { background-color: #99a; color: #333; }
-
-body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
+body { 
+	background-color: 	#99a; 
+	color:	 			#333;
+	font-family: 		verdana, arial, helvetica, sans-serif;
+	font-size:   		13px;
+	line-height: 		18px; 
 }
 
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
+#controller_tabs ul{
+	list-style-type: none;
+	height: 23px;
+	padding: 0px;
+	margin: 0px;
+}
+#controller_tabs ul li {
+	background-color: white;
+	height:17px;
+	padding: 3px;
+	margin-right: 3px;
+	float: left;
+}
+#controller_tabs ul li.active {
+	background-color: #ECF;
 }
 
 a { color: #000; }

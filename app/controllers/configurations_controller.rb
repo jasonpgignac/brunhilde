@@ -1,4 +1,6 @@
 class ConfigurationsController < ApplicationController
+  before_filter :set_current_tab
+  
   # GET /configurations
   # GET /configurations.xml
   def index
@@ -115,4 +117,8 @@ class ConfigurationsController < ApplicationController
       end
     end
   end
+  private
+    def set_current_tab
+      @current_tab = "configurations"
+    end
 end
