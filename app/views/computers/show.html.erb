@@ -17,18 +17,16 @@
 	<b>Configurations:</b>
 </p>
 <p>
-	<%= link_to_remote("Add Package...", 
-						:url =>	{
-									:action => "add_package", 
-									:id => @computer
-								})%>
+	<%= link_to( 	"Add Package...", 
+					add_package_computer_url(@computer),
+					:remote => true,
+					:method => :post )%>
 </p>
 <p>
-	<%= link_to_remote("Add Configuration...", 
-						:url =>	{
-									:action => "add_configuration", 
-									:id => @computer
-								})%>
+	<%= link_to( 	"Add Configuration...",
+	 				add_configuration_computer_url(@computer),
+					:remote => true,
+					:method => :post )%>
 </p>
 <div id="applied_configurations">
 	<%= render :partial => "applied_configurations"%>

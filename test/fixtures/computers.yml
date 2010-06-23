@@ -1,0 +1,9 @@
+default:
+    mac_address: default
+    name: Default Image
+    platform: PC
+
+applied_configurations_test:
+    mac_address: applied_configurations_test
+    name: Applied Configuration Test
+    platform: PC

@@ -7,6 +7,14 @@ class Computer < ActiveRecord::Base
                                     :foreign_key  => :host_computer_id,
                                     :dependent    => :destroy
   belongs_to :owner, :class_name => "User"
+  attr_accessor :applied_configuration_list
+  
+  validates_presence_of :mac_address, :platform
+  validates_uniqueness_of :mac_address
+  validates_associated :applied_configurations
+  validates_inclusion_of :platform, :in => PLATFORMS
+  validate :applied_configuration_list_integrity_test
+  after_save :sort, :if => :applied_configuration_list
   
   PRESCRIPT_PHASE = 0
   POSTSCRIPT_PHASE = 1
@@ -232,4 +240,23 @@ class Computer < ActiveRecord::Base
       function << ""
   end
 
+  private
+  def applied_configuration_list_integrity_test
+    if @applied_configuration_list
+      @applied_configuration_list.each do |id|
+        errors.add(:sorting, "Invalid object in sort list (#{id})") unless AppliedConfiguration.exists?(id) && AppliedConfiguration.find(id).computer == self
+      end
+      applied_configurations.each do |ac|
+        errors.add(:sorting, "Object missing from the sort list (#{id})") unless @applied_configuration_list.include?(ac.id)
+      end
+    end
+  end
+  def sort
+    applied_configuration_list.each_with_index do | f,i |
+      ac = applied_configurations.find(f)
+      ac.position = i
+      ac.save
+    end
+    applied_configuration_list = nil
+  end
 end

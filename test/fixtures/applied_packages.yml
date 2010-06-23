@@ -1,0 +1,19 @@
+base_acrobat:
+    configuration: base
+    package: acrobat
+    position: 1
+
+base_office:
+    configuration: base
+    package: office
+    position: 2
+
+base_image:
+    configuration: base
+    package: image_system
+    position: 0
+
+sample_site_office:
+    configuration: sample_site
+    package: office
+    position: 0

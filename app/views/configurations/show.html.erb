@@ -12,11 +12,10 @@
 	<b>Packages:</b>
 </p>
 <p>
-	<%= link_to_remote("Add Package...", 
-						:url =>	{
-									:action => "add_package", 
-									:id => @configuration
-								})%>
+	<%= link_to(	"Add Package...",
+					add_package_configuration_url(@configuration),
+					:remote	=> true,
+					:method => :post )%>
 </p>
 <div id="applied_packages">
 	<%= render :partial => "applied_packages"%>

@@ -1,7 +1,13 @@
 <ul id="applied-package-list" class="sortable-list">
 	<% @configuration.applied_packages.each do |ap| %>
 		<li id="item_<%= ap.id %>" class="<%= cycle("even", "odd") %>">
-			<%= ap.package.name %>	
+			<%= ap.package.name %>
+			<%= link_to 	'X',
+			 				remove_package_configuration_url(@configuration, 
+								:applied_package_id => ap),
+							:confirm 	=> 'Are you sure?',
+							:remote 	=> true ,
+							:method 	=> :post %>	
 		</li>
 	<% end %>
 </ul>

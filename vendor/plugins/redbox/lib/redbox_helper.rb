@@ -68,16 +68,12 @@ private
     elsif url_options.is_a?(String)
       result = result + url_options.delete(":/")
     else
-      puts url_options.values.join('_')
       result = result + url_to_id_string(url_options.values.join('_'))
     end
-    puts "Redbox id is " + result
     result
   end
   
   def url_to_id_string(value)
-    puts "Value is " + value
-    puts "Value.sub is " + value.sub(/[?=&]/, '')
     value.sub(/[?=&]/, '')
     
   end
@@ -93,10 +89,6 @@ private
       remote_options[:complete] = "RedBox.addHiddenContent('#{hidden_content_id}'); " + remote_options[:complete].to_s
     else
       remote_options[:complete] = "RedBox.activateRBWindow(); " + remote_options[:complete].to_s
-    end
-    puts "Redbox Options : "
-    remote_options.each do |key, value|
-      puts key.to_s + " :: " + value.to_s
     end
     remote_options
   end

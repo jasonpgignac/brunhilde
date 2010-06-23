@@ -22,7 +22,17 @@ body {
 #controller_tabs ul li.active {
 	background-color: #ECF;
 }
-
+table.config_package_table tr {
+	min-height: 60px;
+}
+table.config_package_table th {
+	width: 50px;
+}
+table.config_package_table td {
+	width: 250px;
+	overflow: auto;
+	vertical-align: top;
+}
 a { color: #000; }
 a:visited { color: #666; }
 a:hover { color: #fff; background-color:#000; }

@@ -3,10 +3,8 @@
 		<%= link_to_close_redbox("close") %>
 	</p>
 	<div style="height: 190px; overflow: auto">
-		<% form_remote_tag(:url =>	{
-								:action => "add_configuration", 
-								:id => @computer.id
-							}) do %>
+		<% form_tag(	add_configuration_computer_url(@computer),
+						:remote => true) do %>
 			<%unless @configurations && @configurations.size > 0 %>
 				<%= text_field_tag :query %><br />
 				<%= submit_tag "Search"%>

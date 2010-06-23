@@ -1,10 +1,11 @@
 class ConfigurationsController < ApplicationController
   before_filter :set_current_tab
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   
   # GET /configurations
   # GET /configurations.xml
   def index
-    @configurations = Configuration.all
+    @configurations = Configuration.find_all_by_host_computer_id(nil)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,22 +81,13 @@ class ConfigurationsController < ApplicationController
     @configuration.destroy
 
     respond_to do |format|
+      flash[:notice] = "Configuration was successfully destroyed"
       format.html { redirect_to(configurations_url) }
       format.xml  { head :ok }
     end
   end
 
-  def sort
-    @configuration = Configuration.find(params[:id])
-    params["applied-package-list"].each_with_index do | f, i |
-      pkg = AppliedPackage.find(f)
-      pkg.position = i + 1
-      pkg.save
-    end
-    render :update do |page|
-      page.replace_html 'applied_packages', :partial => 'applied_packages'
-    end
-  end
+  #refactor these
   def add_package
     @configuration = Configuration.find(params[:id])
     unless(params[:package_id])
@@ -115,6 +107,14 @@ class ConfigurationsController < ApplicationController
         page.replace_html 'flash', :partial => 'shared/flashes'
         page << "RedBox.close()"
       end
+    end
+  end
+  def remove_package
+    @configuration = Configuration.find(params[:id])
+    @applied_package = AppliedPackage.find(params[:applied_package_id])
+    @applied_package.destroy
+    render :update do |page|
+      page.replace_html 'applied_packages', :partial => 'applied_packages'
     end
   end
   private

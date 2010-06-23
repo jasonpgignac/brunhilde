@@ -1,16 +1,21 @@
 Brunhilde::Application.routes.draw do |map|
   resources :computers do
-    collection do
+    member do
       post :sort
       post :add_package
+      post :add_configuration
+      post :remove_configuration
     end
+    resources :applied_configurations
   end
 
   resources :configurations do
-    collection do
+    member do
       post :sort
       post :add_package
+      post :remove_package
     end
+    resources :applied_packages
   end
   resources :packages do
     resources :tests do

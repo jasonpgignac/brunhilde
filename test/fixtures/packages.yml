@@ -1,0 +1,20 @@
+acrobat:
+    name: Adobe Acrobat 9
+    source_path: somewhere/Acrobat/
+    executable: install.bat
+    platform: PC
+    deployment_stage: 1
+
+office:
+    name: Microsoft Office 2010
+    source_path: somewhere/Microsoft/
+    executable: setup.exe
+    platform: PC
+    deployment_stage: 1
+
+image_system:
+    name: Ghost Image Machin
+    source_path: somewhere/Image/
+    executable: ghost.bat
+    platform: PC
+    deployment_stage: 0

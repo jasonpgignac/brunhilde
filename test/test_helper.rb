@@ -10,4 +10,47 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def valid_computer(mac="12345678")
+    Computer.new(:mac_address => mac, :platform => "PC")
+  end
+  def valid_configuration
+    Configuration.new(:name => "Test Configuration", :platform => "PC")
+  end
+  def valid_hosted_configuration
+    host = valid_computer("host_computer")
+    c = Configuration.new(:name => "Hosted Configuration", :platform => "PC", :host_computer => valid_computer("host_computer"))
+    c.computers << c.host_computer
+    return c
+  end
+  def valid_package
+    Package.new(
+      :name => "Brunhilde", 
+      :source_path => "stitchbound/brunhilde",
+      :deployment_stage => "1",
+      :executable => "install.bat", 
+      :platform => "PC")
+  end
+  def valid_install_validation
+    InstallValidation.new(
+      :package        => valid_package,
+      :name           => "Test Rule",
+      :rule_type      => "ExecRunning",
+      :rule_parameter => "Test Data",
+      :success_value  => true)
+  end
+  def unattached_install_validation_reaction
+    InstallValidationReaction.new(
+      :command      => "wait",
+      :parameter    => "30",
+      :repetitions  => 3)
+  end
+  def valid_install_validation_reaction
+    vr = unattached_install_validation_reaction
+    vr.install_validation = valid_install_validation
+    return vr
+  end
+  def valid_applied_configuration
+    AppliedConfiguration.new(:configuration => valid_configuration, :computer => valid_computer)
+  end
+  
 end

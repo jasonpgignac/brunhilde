@@ -1,23 +1,36 @@
-<ul id="applied-configuration-list" class="sortable-list">
-	<% @computer.applied_configurations.each do |ac| %>
-		<li id="item_<%= ac.id %>" class="<%= cycle("even", "odd") %>">
-			<td>
+<table id="applied-configuration-list" class="config_package_table">
+	<% @computer.applied_configurations.each do |ac| %>	
+		<tr id="item_<%= ac.id %>" class="<%= cycle("even", "odd") %>">
+			<th>
 				<%= ac.configuration.name %> 
-				<%= link_to_remote 	'X', 
-									:url => {
-										:action => "remove_configuration",
-										:id => @computer,
-										:applied_configuration_id => ac
-									}, 
-									:confirm => 'Are you sure?'%>
-			</td>	
-		</li>
+				<%= link_to 	'X',
+		 						remove_configuration_computer_url(@computer, 
+									:applied_configuration_id => ac),
+								:confirm 	=> 'Are you sure?',
+								:remote 	=> true ,
+								:method 	=> :post %>
+			</th>
+			<td>
+				Prescript:
+				<ul>
+					<% ac.configuration.prescript_packages.each do |p| %>
+						<li><%= p.name %></li>
+					<% end %>
+				</ul>
+			</td>
+			<td>
+				Postscript:
+				<ul>
+					<% ac.configuration.postscript_packages.each do |p| %>
+						<li><%= p.name %></li>
+					<% end %>
+				</ul>
+			</td>
+		</tr>
 	<% end %>
-</ul>
-<%= sortable_element "applied-configuration-list", 
-		:url 		=>	{
-							:action => "sort", 
-							:id => @computer
-						},
-		:complete 	=> visual_effect(:highlight, "applied-configuration-list")
+</table>
+<%= sortable_element 	"applied-configuration-list",
+ 						:tag		=> 'tr',
+						:url 		=>	{ :action => "sort",  :id => @computer},
+						:complete 	=> visual_effect(:highlight, "applied-configuration-list")
 %>
