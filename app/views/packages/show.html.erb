@@ -14,17 +14,17 @@
 				<th>Name</th>
 				<th>Description</th>
 			</tr>
-			<% @package.package_tests.each do |pt|%>
+			<% @package.install_validations.each do |pt|%>
 				<tr class="<%= cycle("even", "odd") %>">
 					<td><%= pt.name %></td>
 					<td><%= pt.description %></td>
-					<td><%= link_to 'Show', package_test_path(@package, pt) %></td>
-					<td><%= link_to 'Edit', edit_package_test_path(@package, pt) %></td>
-		    		<td><%= link_to 'Destroy', package_test_path(@package, pt), :confirm => 'Are you sure?', :method => :delete %></td>
+					<td><%= link_to 'Show', package_install_validation_path(@package, pt) %></td>
+					<td><%= link_to 'Edit', edit_package_install_validation_path(@package, pt) %></td>
+		    		<td><%= link_to 'Destroy', package_install_validation_path(@package, pt), :confirm => 'Are you sure?', :method => :delete %></td>
 				</tr>
 			<% end %>
 		</table>
-		<%= link_to 'New Test...', new_package_test_path(@package.id)%>
+		<%= link_to 'New Test...', new_package_install_validation_path(@package.id)%>
 	</div>
 </p>
 <%= link_to 'Edit', edit_package_path(@package) %> |

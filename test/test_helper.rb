@@ -22,13 +22,22 @@ class ActiveSupport::TestCase
     c.computers << c.host_computer
     return c
   end
-  def valid_package
+  def valid_package(name="Brunhilde")
     Package.new(
-      :name => "Brunhilde", 
-      :source_path => "stitchbound/brunhilde",
+      :name => name, 
+      :source_path => "stitchbound/#{name}",
       :deployment_stage => "1",
       :executable => "install.bat", 
       :platform => "PC")
+  end
+  def valid_package_hash(name="Brunhilde")
+    {
+      :name => name, 
+      :source_path => "stitchbound/#{name}",
+      :deployment_stage => "1",
+      :executable => "install.bat", 
+      :platform => "PC"
+    }
   end
   def valid_install_validation
     InstallValidation.new(

@@ -1,5 +1,6 @@
 class PackagesController < ApplicationController
   before_filter :set_current_tab
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   
   # GET /packages
   # GET /packages.xml
@@ -84,6 +85,7 @@ class PackagesController < ApplicationController
     @package.destroy
 
     respond_to do |format|
+      flash[:notice] = "Package was successfully destroyed"
       format.html { redirect_to(packages_url) }
       format.xml  { head :ok }
     end

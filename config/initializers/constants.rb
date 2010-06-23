@@ -1,0 +1,2 @@
+PLATFORMS = ["Mac", "PC"]
+DEPLOYMENT_STAGES = [0,1]

@@ -18,8 +18,8 @@ Brunhilde::Application.routes.draw do |map|
     resources :applied_packages
   end
   resources :packages do
-    resources :tests do
-      resources :reactions
+    resources :install_validations do
+      resources :install_validation_reactions
     end
   end
   resources :package_test_reactions
