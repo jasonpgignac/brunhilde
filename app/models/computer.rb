@@ -98,8 +98,6 @@ class Computer < ActiveRecord::Base
                   "if errorlevel 1 (",
                   "echo Waiting...",
                   "goto :pingwait)",
-                  "goto :phase%BRUNHILDEPHASE%",
-                  "",
                   "NET USE S: %BRUNHILDE_REPO_SRV% P@scpcs1nst /USER:PEROOT\\svc-eduhassatinst001",
                   "if errorlevel 1 (",
                   "echo Netowrk Not found",
