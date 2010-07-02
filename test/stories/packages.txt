@@ -16,4 +16,5 @@ A user wants to destroy an outdated package
 PASSED
 
 A user has updated a package's installer, and wants to update the record in the database.
-
+ERROR: Cannot set the platform
+ERROR: View screen has an unmatched p element

@@ -6,26 +6,24 @@
 	Executable: <%= @package.executable %><br />
 	Deployment Stage: <%= @package.deployment_stage %><br />
 </p>
-<p>
-	<div>
-		Tests:
-		<table>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
+<div>
+	Tests:
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+		</tr>
+		<% @package.install_validations.each do |pt|%>
+			<tr class="<%= cycle("even", "odd") %>">
+				<td><%= pt.name %></td>
+				<td><%= pt.description %></td>
+				<td><%= link_to 'Show', package_install_validation_path(@package, pt) %></td>
+				<td><%= link_to 'Edit', edit_package_install_validation_path(@package, pt) %></td>
+	    		<td><%= link_to 'Destroy', package_install_validation_path(@package, pt), :confirm => 'Are you sure?', :method => :delete %></td>
 			</tr>
-			<% @package.install_validations.each do |pt|%>
-				<tr class="<%= cycle("even", "odd") %>">
-					<td><%= pt.name %></td>
-					<td><%= pt.description %></td>
-					<td><%= link_to 'Show', package_install_validation_path(@package, pt) %></td>
-					<td><%= link_to 'Edit', edit_package_install_validation_path(@package, pt) %></td>
-		    		<td><%= link_to 'Destroy', package_install_validation_path(@package, pt), :confirm => 'Are you sure?', :method => :delete %></td>
-				</tr>
-			<% end %>
-		</table>
-		<%= link_to 'New Test...', new_package_install_validation_path(@package.id)%>
-	</div>
-</p>
+		<% end %>
+	</table>
+	<%= link_to 'New Test...', new_package_install_validation_path(@package.id)%>
+</div>
 <%= link_to 'Edit', edit_package_path(@package) %> |
 <%= link_to 'Back', packages_path %>
