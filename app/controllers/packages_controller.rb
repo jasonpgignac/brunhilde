@@ -1,6 +1,5 @@
 class PackagesController < ApplicationController
   before_filter :set_current_tab
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   
   # GET /packages
   # GET /packages.xml

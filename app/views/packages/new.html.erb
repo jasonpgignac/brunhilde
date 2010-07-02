@@ -10,6 +10,13 @@
 				<td><%= f.text_field(:name)%></td>
 			</tr>
 			<tr>
+				<td>Platform</td>
+				<td>
+					<% PLATFORMS.each do |platform| %>
+						<%= f.radio_button(:platform, platform)%> <%=platform%><br />
+					<% end %>
+				</td>
+			<tr>
 				<td>Licensed</td>
 				<td><%= f.check_box(:licensed)%></td>
 			</tr>

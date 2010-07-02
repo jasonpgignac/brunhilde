@@ -1,5 +1,4 @@
 class AppliedConfigurationsController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   def index
     @computer = Computer.find(params[:computer_id])
     @applied_configurations = @computer.applied_configurations

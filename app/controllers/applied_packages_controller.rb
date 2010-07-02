@@ -1,5 +1,4 @@
 class AppliedPackagesController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   def index
     @configuration = Configuration.find(params[:configuration_id])
     @applied_packages = @configuration.applied_packages

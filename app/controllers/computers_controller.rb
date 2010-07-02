@@ -1,6 +1,5 @@
 class ComputersController < ApplicationController
   before_filter :set_current_tab
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   # GET /computers
   # GET /computers.xml
   def index

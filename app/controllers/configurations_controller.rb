@@ -1,6 +1,5 @@
 class ConfigurationsController < ApplicationController
   before_filter :set_current_tab
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   
   # GET /configurations
   # GET /configurations.xml
