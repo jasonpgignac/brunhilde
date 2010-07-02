@@ -29,8 +29,3 @@
 		</tr>
 	<% end %>
 </table>
-<%= sortable_element 	"applied-configuration-list",
- 						:tag		=> 'tr',
-						:url 		=>	{ :action => "sort",  :id => @computer},
-						:complete 	=> visual_effect(:highlight, "applied-configuration-list")
-%>

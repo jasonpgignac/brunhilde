@@ -6,6 +6,7 @@ class PackagesController < ApplicationController
   def index
     if params[:query]
       @packages = Package.search(params[:query])
+      @query = params[:query]
     else
       @packages = Package.find(:all)
     end

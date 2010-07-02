@@ -5,8 +5,8 @@ class Package < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
   
   validates_presence_of :name, :source_path, :executable, :platform, :deployment_stage
-  validates_inclusion_of :platform, :in => PLATFORMS
-  validates_inclusion_of :deployment_stage, :in => DEPLOYMENT_STAGES
+  validates_inclusion_of :platform, :in => PLATFORMS, :if => :platform
+  validates_inclusion_of :deployment_stage, :in => DEPLOYMENT_STAGES, :if => :deployment_stage
   
   def self.search(query)
      if !query.to_s.strip.empty?

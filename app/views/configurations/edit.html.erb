@@ -7,6 +7,18 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
+	
+	<p>
+		<%= f.label :platform %><br />
+		<table>
+		<% PLATFORMS.each do |platform| %>
+			<tr>
+				<td><%= f.radio_button(:platform, platform)%></td>
+				<td><%= f.label(:platform, platform) %></td>
+			</tr>
+		<% end %>
+		</table>
+	</p>
   <p>
     <%= f.label :notes %><br />
     <%= f.text_area :notes %>

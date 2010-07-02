@@ -11,11 +11,17 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
-  <p>
-    <%= f.label :platform %><br />
-    <%= f.radio_button :platform, "PC" %> PC |
- 	<%= f.radio_button :platform, "Mac" %> Mac
-  </p>
+  	<p>
+		<%= f.label :platform %><br />
+		<table>
+		<% PLATFORMS.each do |platform| %>
+			<tr>
+				<td><%= f.radio_button(:platform, platform)%></td>
+				<td><%= f.label(:platform, platform) %></td>
+			</tr>
+		<% end %>
+		</table>
+	</p>
   <p>
     <%= f.submit 'Update' %>
   </p>

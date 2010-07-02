@@ -3,13 +3,11 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Notes</th>
   </tr>
 
 <% @configurations.each do |configuration| %>
   <tr class="<%= cycle("even", "odd") %>">
     <td><%=h configuration.name %></td>
-    <td><%=h configuration.notes %></td>
     <td><%= link_to 'Show', configuration %></td>
     <td><%= link_to 'Edit', edit_configuration_path(configuration) %></td>
     <td><%= link_to 'Destroy', configuration, :confirm => 'Are you sure?', :method => :delete %></td>

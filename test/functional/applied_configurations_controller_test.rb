@@ -48,6 +48,14 @@ class AppliedConfigurationsControllerTest < ActionController::TestCase
     assert_response :missing
   end
   
+  # new
+  test "should create a new computer on new" do
+    get :new
+    assert_response :success, "page was not rec'd successfully"
+    assert_not_nil assigns(:applied_configuration), "did not make a new object"
+    assert assigns(:applied_configuration).new_record?, "returned a saved object instead of a new one"
+  end
+  
   #create
   test "should return the applied_configuration and a created status on create if valid" do
     post(:create, {

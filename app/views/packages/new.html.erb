@@ -3,7 +3,6 @@
 <%= form_for(@package) do |f| %>
   <%= f.error_messages %>
 
-  <p>
 		<table>
 			<tr>
 				<td>Name</td>
@@ -12,9 +11,14 @@
 			<tr>
 				<td>Platform</td>
 				<td>
+					<table>
 					<% PLATFORMS.each do |platform| %>
-						<%= f.radio_button(:platform, platform)%> <%=platform%><br />
+						<tr>
+							<td><%= f.radio_button(:platform, platform)%></td>
+							<td><%= f.label(:platform, platform) %></td>
+						</tr>
 					<% end %>
+					</table>
 				</td>
 			<tr>
 				<td>Licensed</td>
@@ -23,8 +27,16 @@
 			<tr>
 				<td>Stage</td>
 				<td>
-					<%= f.radio_button(:deployment_stage, 0)%> Prescript<br />
-					<%= f.radio_button(:deployment_stage, 1)%> Postscript
+					<table>
+						<tr>
+							<td><%= f.radio_button(:deployment_stage, 0)%></td>
+							<td><%= f.label(:deployment_stage, "Prescript") %></td>
+						</tr>
+						<tr>
+							<td><%= f.radio_button(:deployment_stage, 1)%></td> 
+							<td><%= f.label(:deployment_stage, "Postscript") %></td>
+						<tr>
+					</table>
 				</td>
 			</tr>
 			
@@ -38,7 +50,6 @@
 			</tr>
 		</table>
     <%= f.submit "Create" %>
-  </p>
 <% end %>
 
 <%= link_to 'Back', packages_path %>

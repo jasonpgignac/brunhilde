@@ -18,13 +18,13 @@
 </p>
 <p>
 	<%= link_to( 	"Add Package...", 
-					add_package_computer_url(@computer),
+					new_computer_applied_configuration_url(@computer),
 					:remote => true,
 					:method => :post )%>
 </p>
 <p>
 	<%= link_to( 	"Add Configuration...",
-	 				add_configuration_computer_url(@computer),
+	 				new_computer_applied_configuration_url(@computer),
 					:remote => true,
 					:method => :post )%>
 </p>
@@ -34,3 +34,40 @@
 
 <%= link_to 'Edit', edit_computer_path(@computer) %> |
 <%= link_to 'Back', computers_path %>
+
+
+
+
+<% content_for :javascript do %>
+
+  <% javascript_tag do %>
+	// sortable applied_configurations
+
+     $('#applied-configuration-list').sortable(
+        {
+          axis: 'y', 
+          dropOnEmpty:false, 
+          handle: 'tr', 
+          cursor: 'crosshair',
+          items: 'tr',
+          opacity: 0.4,
+          scroll: true,
+          update: function(){
+            $.ajax({
+                type: 'post', 
+                data: $('#tasks-list').sortable('serialize') + '&id=<%=@computer.id-%>', 
+                dataType: 'script', 
+                complete: function(request){
+                    $('#tasks-list').effect('highlight');
+                  },
+                url: '<%= computer_applied_configurations_path(@computer) %>'})
+            }
+          })
+    <% end %>
+
+	<% javascript_tag do %>
+		// new applied configuration
+	<% end %>
+		
+  
+<% end %>
