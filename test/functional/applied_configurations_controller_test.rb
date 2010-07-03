@@ -50,7 +50,10 @@ class AppliedConfigurationsControllerTest < ActionController::TestCase
   
   # new
   test "should create a new computer on new" do
-    get :new
+    xhr :get, :new, {
+      :id           => "Invalid ID",
+      :computer_id  => @computer.id,
+    }
     assert_response :success, "page was not rec'd successfully"
     assert_not_nil assigns(:applied_configuration), "did not make a new object"
     assert assigns(:applied_configuration).new_record?, "returned a saved object instead of a new one"

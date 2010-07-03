@@ -82,4 +82,23 @@ class ConfigurationTest < ActiveSupport::TestCase
     c.applied_package_list = ap_list
     assert !c.valid?, "was valid with a stage 0 object after stage 1"
   end
+  test "should return a list of matching, case-insensitive names on search" do
+    c = valid_configuration("Unique Name")
+    c.save
+    configurations = Configuration.search("Unique")
+    assert configurations.include?(c), "Does not include the sought item"
+    assert_equal configurations.size, 1, "Includes more than 1 item"
+    configurations = Configuration.search("unique")
+    assert configurations.include?(c), "Does not include the sought item on case insensitive search"
+    assert_equal configurations.size, 1, "Includes more than 1 item on case insensitive search"
+  end
+  test "should return a null list if there are no matches on search" do
+    configurations = Configuration.search("Streudelwire")
+    assert_equal configurations.size, 0, "Found items when it shouldn't"
+  end
+  test "should not find a hosted configuration on search" do
+    c = configurations("test_hosted")
+    configurations = Configuration.search("Steinbeck")
+    assert_equal configurations.size, 0, "Found items when it shouldn't"
+  end
 end

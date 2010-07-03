@@ -12,3 +12,8 @@ default_sample_site:
     computer: default
     configuration: sample_site
     position: 2
+    
+default_test_hosted:
+    computer: default
+    configuration: test_hosted
+    position: 3

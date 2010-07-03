@@ -17,17 +17,11 @@
 	<b>Configurations:</b>
 </p>
 <p>
-	<%= link_to( 	"Add Package...", 
-					new_computer_applied_configuration_url(@computer),
-					:remote => true,
-					:method => :post )%>
+	<%= link_to( 	"Add...", 
+					"#",
+					:id => "add_ac")%>
 </p>
-<p>
-	<%= link_to( 	"Add Configuration...",
-	 				new_computer_applied_configuration_url(@computer),
-					:remote => true,
-					:method => :post )%>
-</p>
+
 <div id="applied_configurations">
 	<%= render :partial => "applied_configurations"%>
 </div>
@@ -40,7 +34,7 @@
 
 <% content_for :javascript do %>
 
-  <% javascript_tag do %>
+  <%= javascript_tag do %>
 	// sortable applied_configurations
 
      $('#applied-configuration-list').sortable(
@@ -65,9 +59,16 @@
           })
     <% end %>
 
-	<% javascript_tag do %>
-		// new applied configuration
-	<% end %>
-		
-  
+	<%= javascript_tag do %>
+		// add new applied_configuration behaviour to the 'add' link
+		jQuery(document).ready(function(){
+			div = jQuery('<div id="new_ac_form" class="jqmWindow">Please wait... <img src="/images/busy.gif" alt="loading" /></div>').appendTo('body').hide()
+			div.jqm({
+				ajax: 		'<%= new_computer_applied_configuration_path(@computer) %>',
+				trigger:	'a#add_ac'
+			})
+			jQuery('<a class="close_jqm">"X"</a>').appendTo(div)
+			div.jqmAddClose(".close_jqm")
+		})
+	<% end %>		
 <% end %>

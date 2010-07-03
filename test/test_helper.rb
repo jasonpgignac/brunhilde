@@ -13,8 +13,8 @@ class ActiveSupport::TestCase
   def valid_computer(mac="12345678")
     Computer.new(:mac_address => mac, :platform => "PC")
   end
-  def valid_configuration
-    Configuration.new(:name => "Test Configuration", :platform => "PC")
+  def valid_configuration(name="Test Configuration")
+    Configuration.new(:name => name, :platform => "PC")
   end
   def valid_hosted_configuration
     host = valid_computer("host_computer")

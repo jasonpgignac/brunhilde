@@ -46,7 +46,7 @@ class ComputerTest < ActiveSupport::TestCase
     old_order = c.applied_configurations.map { |ac| ac.id }
     c.applied_configuration_list = c.applied_configurations.map { |ac| ac.id }.reverse
     c.save
-    assert_equal applied_configurations(:default_base).position, 1
-    assert_equal applied_configurations(:default_sample_site).position, 0
+    assert_equal applied_configurations(:default_base).position, 2
+    assert_equal applied_configurations(:default_sample_site).position, 1
   end
 end

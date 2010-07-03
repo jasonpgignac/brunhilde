@@ -4,11 +4,17 @@ class ConfigurationsController < ApplicationController
   # GET /configurations
   # GET /configurations.xml
   def index
-    @configurations = Configuration.find_all_by_host_computer_id(nil)
+    if params[:query]
+      @configurations = Configuration.search(params[:query])
+      @query = params[:query]
+    else
+      @configurations = Configuration.find_all_by_host_computer_id(nil)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @configurations }
+      format.json { render :json => @configurations }
     end
   end
 

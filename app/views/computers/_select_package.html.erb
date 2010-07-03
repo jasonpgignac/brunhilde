@@ -3,7 +3,7 @@
 		<%= link_to_close_redbox("close") %>
 	</p>
 	<div style="height: 190px; overflow: auto">
-		<% form_tag(add_package_computer_url(@computer),
+		<%= form_tag(add_package_computer_url(@computer),
 					:remote => true) do %>
 			<%unless @packages && @packages.size > 0 %>
 				<%= text_field_tag :query %><br />

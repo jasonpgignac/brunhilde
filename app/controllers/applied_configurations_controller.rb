@@ -9,6 +9,13 @@ class AppliedConfigurationsController < ApplicationController
     end
   end
 
+  def new
+    @computer = Computer.find(params[:computer_id])
+    @applied_configuration = AppliedConfiguration.new
+    if request.xhr?
+      render :partial => "new_from_computer"
+    end
+  end
   def show
     @computer = Computer.find(params[:computer_id])
     @applied_configuration = AppliedConfiguration.find(params[:id])

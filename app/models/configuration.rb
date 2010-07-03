@@ -18,13 +18,15 @@ class Configuration < ActiveRecord::Base
   validate                            :applied_package_list_integrity_test
   validate                            :applied_packages_are_in_stage_order
   
-  after_save :sort, :if => :applied_package_list 
+  after_save :sort, :if => :applied_package_list
+  
+  scope :non_hosted, where(:host_computer_id => nil) 
                                               
   def self.search(query)
      if !query.to_s.strip.empty?
         tokens = query.split.collect {|c| "%#{c.downcase}%"}
         
-        configurations = find_by_sql(["select c.* from configurations c where #{ (["(lower(c.name) like ?)"] * tokens.size).join(" and ") } order by c.name desc", *(tokens).sort])
+        configurations = non_hosted.find_by_sql(["select c.* from configurations c where #{ (["(lower(c.name) like ?)"] * tokens.size).join(" and ") } order by c.name desc", *(tokens).sort])
         configurations.delete_if { |c| c.host_computer }
      else
         []

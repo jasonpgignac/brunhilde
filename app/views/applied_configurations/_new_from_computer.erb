@@ -1,0 +1,6 @@
+<a href="#" class="jqmClose">X</a>
+<h3>Adding new steps to the build...</h3>
+Search: <%= form_tag(configurations_url(:format => :json), :remote => true, :method => :get) do %>
+	<%= text_field_tag :query %><br />
+	<%= submit_tag "Search"%>
+<% end %>

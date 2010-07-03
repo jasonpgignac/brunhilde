@@ -10,7 +10,14 @@ class PackagesControllerTest < ActionController::TestCase
   end
   
   test "should get a searched subset of index" do
-    assert false, "Test not yet implemented"
+    p = valid_package("Trilobyte Pancake 2.3")
+    p.save
+    get :index, {:query => "Trilobyte"}
+    assert_response :success, "index page was not rec'd successfully"
+    assert_not_nil assigns(:packages), "index did not set collection"
+    assert_equal assigns(:packages).count, 1, "index did not return 1 record"
+    assert_equal assigns(:packages)[0], p, "index returned the wrong record"
+    assert_equal assigns(:query), "Trilobyte", "query was not set"
   end
   
   # show

@@ -1,0 +1,20 @@
+A user wishes to create a new computer record, with some existing configs.
+ERROR: Cannot add configs
+
+A user tries to create a computer, but it is invalid
+ERROR: Cannot test configs, of course
+
+A user wishes to search the computers by name
+ERROR: Not yet implemented
+
+A user wants to destroy an existing computer
+PASSED
+
+A user wants to change an existing computers internal fields (name, etc)
+PASSED
+
+A user wants to edit the configurations or order of an existing computer
+ERROR: Not yet implemented
+
+A user wants to add individual packages to an existing computer
+ERROR: Not yet implemented

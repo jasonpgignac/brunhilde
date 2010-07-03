@@ -42,4 +42,18 @@ class PackageTest < ActiveSupport::TestCase
     assert !p.valid?, "Was valid with a bad deployment stage"
   end
   
+  test "should return a list of matching, case-insensitive names on search" do
+    p = valid_package("Unique Name")
+    p.save
+    packages = Package.search("Unique")
+    assert packages.include?(p), "Does not include the sought item"
+    assert_equal packages.size, 1, "Includes more than 1 item"
+    packages = Package.search("unique")
+    assert packages.include?(p), "Does not include the sought item on case insensitive search"
+    assert_equal packages.size, 1, "Includes more than 1 item on case insensitive search"
+  end
+  test "should return a null list if there are no matches on search" do
+    packages = Package.search("Streudelwire")
+    assert_equal packages.size, 0, "Found packages when it shouldn't"
+  end
 end

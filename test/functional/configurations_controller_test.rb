@@ -10,7 +10,14 @@ class ConfigurationsControllerTest < ActionController::TestCase
   end
   
   test "should get a searched subset of index" do
-    assert false, "Test not yet implemented"
+    c = valid_configuration("Proust Questionnaire Eeelslippers")
+    c.save
+    get :index, {:query => "Eelslippers"}
+    assert_response :success, "index page was not rec'd successfully"
+    assert_not_nil assigns(:configurations), "index did not set collection"
+    assert_equal assigns(:configurations).count, 1, "index did not return 1 record"
+    assert_equal assigns(:configurations)[0], c, "index returned the wrong record"
+    assert_equal assigns(:query), "Eelslippers", "query was not set"
   end
   
   # show

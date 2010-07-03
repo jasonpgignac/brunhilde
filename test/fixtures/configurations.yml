@@ -7,3 +7,9 @@ sample_site:
     name: Base Somewhereville Configuration
     notes: This configuration is the base additional for Somewhereville
     platform: PC
+    
+test_hosted:
+    name: John Steinbeck Grapery
+    notes: This configuration is hosted and will test search functions
+    platform: PC
+    host_computer: default
