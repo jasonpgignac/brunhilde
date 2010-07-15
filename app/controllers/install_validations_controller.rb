@@ -27,6 +27,9 @@ class InstallValidationsController < ApplicationController
     @install_validation = InstallValidation.new
 
     respond_to do |format|
+      if(request.xhr?)
+        format.html { render :partial => "new_iv_row"}
+      end
       format.json  { render :json => @install_validation }
       format.xml  { render :xml => @install_validation }
     end
@@ -39,6 +42,9 @@ class InstallValidationsController < ApplicationController
     @install_validation.package_id = @package.id
     respond_to do |format|
       if @install_validation.save
+        if(request.xhr?)
+          format.html { render :partial => "show_iv_row"}
+        end
         format.json  { render :json => @install_validation, :status => :created, :location => package_install_validations_path(@package, @install_validation.id) }
         format.xml  { render :xml => @install_validation, :status => :created, :location => package_install_validations_path(@package, @install_validation.id) }
       else
@@ -56,6 +62,9 @@ class InstallValidationsController < ApplicationController
     @install_validation.destroy
 
     respond_to do |format|
+      if request.xhr?
+        format.js
+      end
       format.json { head :ok}
       format.xml  { head :ok }
     end

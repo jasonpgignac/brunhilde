@@ -1,0 +1,20 @@
+<tr id="edit_iv_row_<%= @install_validation.id %>" class="edit_iv_row" >
+	<%= form_for([@package, @install_validation], :remote => true) do |f| %>
+		<td>
+			There 
+			<%= f.select( :success_value, [["is", true],["is not", false]]) %>
+			<%= f.select( :rule_type, DESCRIPTION_FOR_RULE_TYPE.map{ |value, display| [display + "...", value] } ) %>
+			<%= f.text_field( :rule_parameter)%>
+			<br />
+		</td>
+		<td>
+			<table>
+				<% @install_validation.install_validation_reactions.each do |ivr| %>
+					<tr><%= reaction_string(ivr) %></tr>
+				<% end %>
+			</table>
+		</td>
+		<td><%= f.submit( "Save")%></td>
+	<% end %>
+	<td><a href="#" id="cancel_edit_install_validation">Cancel</a></td>
+</tr>

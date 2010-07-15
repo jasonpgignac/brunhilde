@@ -1,6 +1,54 @@
 <a href="#" class="jqmClose">X</a>
-<h3>Adding new steps to the build...</h3>
-Search: <%= form_tag(configurations_url(:format => :json), :remote => true, :method => :get) do %>
-	<%= text_field_tag :query %><br />
-	<%= submit_tag "Search"%>
+<div id="configuration_search_form">
+	<h3>Adding new steps to the build...</h3>
+	Search: <%= form_tag(configurations_url(:format => :json), :remote => true, :method => :get) do %>
+		<%= text_field_tag :query %><br />
+		<%= submit_tag "Search"%>
+	<% end %>
+</div>
+<div id="configuration_select_form">
+	<hr />
+	Select a result:<br />
+	<%= form_for([@computer, AppliedConfiguration.new], :remote => true) do |f|%>
+		<%= f.select :configuration_id, {}, {}, { :size => 5 } %><br />
+		<%= f.submit %>
+	<% end %>
+</div>
+<div id="no_configurations_found">
+	<hr />
+	<h4>No results found!</h4>
+</div>
+
+
+<%= javascript_tag do %>
+
+jQuery("document").ready(function() {	
+	jQuery("div#configuration_search_form form").bind('ajax:success', function(xhr, json, status) {
+		select_tag = jQuery("div#configuration_select_form form select")
+		select_tag.empty()
+		none_found_div = jQuery("div#no_configurations_found")
+		select_form_div = jQuery("div#configuration_select_form")
+		none_found_div.slideUp();
+		select_form_div.slideUp();
+		json = JSON.parse(json)	
+		if(json.length > 0) {
+			jQuery.each(json, function(index, config) {
+				jQuery.dump(config)
+				option_tag = "<option value='" + config.configuration.id + "'>" + config.configuration.name + "</option>"
+				jQuery(option_tag).appendTo(select_tag)
+			})
+			select_form_div.slideDown();
+		} else {
+			none_found_div.slideDown();
+		}
+	})
+		
+	jQuery("div#configuration_select_form form")
+		.bind("ajax:success", function(xhr, data, status) {
+			jQuery("#new_ac_form").jqmHide()
+    	});
+	
+	jQuery("div#configuration_select_form").hide()
+	jQuery("div#no_configurations_found").hide()
+})
 <% end %>

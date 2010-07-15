@@ -18,6 +18,7 @@ class ComputersController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @computer }
+
     end
   end
 
@@ -64,9 +65,11 @@ class ComputersController < ApplicationController
         flash[:notice] = 'Computer was successfully updated.'
         format.html { redirect_to(@computer) }
         format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @computer.errors, :status => :unprocessable_entity }
+        format.json { render :json => @computer.errors, :status => :unprocessable_entity }
       end
     end
   end

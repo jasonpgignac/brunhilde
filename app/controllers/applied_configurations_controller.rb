@@ -32,9 +32,13 @@ class AppliedConfigurationsController < ApplicationController
     @applied_configuration.computer = @computer
     respond_to do |format|
       if @applied_configuration.save
+        if request.xhr?
+          format.js
+        end
         format.xml  { render :xml => @applied_configuration, :status => :created }
         format.json { render :json => @applied_configuration, :status => :created }
       else
+        puts "Errors: #{@applied_configuration.errors}"
         format.json { render :json => @applied_configuration.errors, :status => :unprocessable_entity }
         format.xml  { render :xml => @applied_configuration.errors, :status => :unprocessable_entity }
       end
@@ -48,6 +52,9 @@ class AppliedConfigurationsController < ApplicationController
     @applied_configuration.destroy
 
     respond_to do |format|
+      if request.xhr?
+        format.js
+      end
       format.xml  { head :ok }
       format.json  { head :ok }
     end

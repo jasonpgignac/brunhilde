@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100611195852) do
+ActiveRecord::Schema.define(:version => 20100714145540) do
 
   create_table "applied_configurations", :force => true do |t|
     t.integer  "configuration_id"
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(:version => 20100611195852) do
 
   create_table "install_validations", :force => true do |t|
     t.integer  "package_id"
-    t.string   "name"
     t.string   "description"
     t.string   "rule_type"
     t.string   "rule_parameter"

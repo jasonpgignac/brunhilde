@@ -7,23 +7,69 @@
 	Deployment Stage: <%= @package.deployment_stage %><br />
 </p>
 <div>
-	Tests:
-	<table>
+	<% if @package.install_validations.size > 0 %>
+		Tests:<br />
+	<% end %>
+	<table id="install_validations_table">
 		<tr>
-			<th>Name</th>
-			<th>Description</th>
+			<th>If...</th>
+			<th>Then...</th>
 		</tr>
-		<% @package.install_validations.each do |pt|%>
-			<tr class="<%= cycle("even", "odd") %>">
-				<td><%= pt.name %></td>
-				<td><%= pt.description %></td>
-				<td><%= link_to 'Show', package_install_validation_path(@package, pt) %></td>
+		<% @package.install_validations.each do |pt| %>
+			<tr id="<%=pt.class.to_s.downcase %>_<%= pt.id %>" class="<%= cycle("even", "odd") %>">
+				<td>
+					There <%= pt.success_value ? "is" : "is not" %> <%= condition_string(pt) %>
+					<br />
+				</td>
+				<td>
+					<table>
+						<% pt.install_validation_reactions.each do |ivr| %>
+							<tr><%= reaction_string(ivr) %></tr>
+						<% end %>
+					</table>
+				</td>
 				<td><%= link_to 'Edit', edit_package_install_validation_path(@package, pt) %></td>
-	    		<td><%= link_to 'Destroy', package_install_validation_path(@package, pt), :confirm => 'Are you sure?', :method => :delete %></td>
+	    		<td><%= link_to 'Destroy', package_install_validation_path(@package, pt), :confirm => 'Are you sure?', :method => :delete, :remote => true, :class	=> "delete_link" %></td>
 			</tr>
 		<% end %>
 	</table>
-	<%= link_to 'New Test...', new_package_install_validation_path(@package.id)%>
+	<%= link_to 'New Test...', new_package_install_validation_path(@package.id), :remote => :true, :id => "new_iv_link"%>
 </div>
 <%= link_to 'Edit', edit_package_path(@package) %> |
 <%= link_to 'Back', packages_path %>
+
+
+<% content_for :javascript do %>
+
+	
+	<% if @package.install_validations.size == 0 %>
+		<%= javascript_tag do %>
+			// Hide the IV table if there are no tests
+			jQuery("document").ready(function() {
+				jQuery("#install_validations_table").hide();
+			})
+		<% end %>
+	<% end %>
+	
+	
+	<%= javascript_tag do %>
+		// new_iv_link handler
+		jQuery("#new_iv_link")
+			.bind("ajax:success", function(xhr, data, status) {
+				jQuery("#install_validations_table").append(data).show();
+				jQuery("#new_install_validation")
+					.bind("ajax:success", function(xhr, data, status) {
+						jQuery("#install_validations_table").append(data).show()
+						jQuery(this).parent().detach();
+						jQuery("#new_iv_link").show();
+					});
+				jQuery("#cancel_new_install_validation")
+					.click( function() {
+						jQuery(this).parent().parent().detach();
+						jQuery("#new_iv_link").show();
+					})
+				jQuery("#new_iv_link").hide();
+			});
+	<% end %>
+
+<% end %>

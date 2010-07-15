@@ -243,17 +243,18 @@ class Computer < ActiveRecord::Base
   private
   def applied_configuration_list_integrity_test
     if @applied_configuration_list
-      @applied_configuration_list.each do |id|
-        errors.add(:sorting, "Invalid object in sort list (#{id})") unless AppliedConfiguration.exists?(id) && AppliedConfiguration.find(id).computer == self
+      ac_list_as_i = @applied_configuration_list.map{ |x| x.to_i }
+      ac_list_as_i.each do |id|
+        errors.add(:sorting, "Invalid object in sort list (#{id})") unless AppliedConfiguration.exists?(id.to_i) && AppliedConfiguration.find(id.to_i).computer == self
       end
       applied_configurations.each do |ac|
-        errors.add(:sorting, "Object missing from the sort list (#{id})") unless @applied_configuration_list.include?(ac.id)
+        errors.add(:sorting, "Object missing from the sort list (#{id})") unless ac_list_as_i.include?(ac.id.to_i)
       end
     end
   end
   def sort
     applied_configuration_list.each_with_index do | f,i |
-      ac = applied_configurations.find(f)
+      ac = applied_configurations.find(f.to_i)
       ac.position = i
       ac.save
     end

@@ -1,0 +1,27 @@
+<tr id="<%=@applied_configuration.class.to_s.downcase %>_<%= @applied_configuration.id %>" class="applied_configuration">
+	<th>
+		<%= @applied_configuration.configuration.name %> 
+		<%= link_to 	'X',
+ 						computer_applied_configuration_url(@computer, @applied_configuration),
+						:confirm 	=> 'Are you sure?',
+						:remote 	=> true,
+						:method 	=> :delete,
+						:class		=> "delete_link" %>
+	</th>
+	<td>
+		Prescript:
+		<ul>
+			<% @applied_configuration.configuration.prescript_packages.each do |p| %>
+				<li><%= p.name %></li>
+			<% end %>
+		</ul>
+	</td>
+	<td>
+		Postscript:
+		<ul>
+			<% @applied_configuration.configuration.postscript_packages.each do |p| %>
+				<li><%= p.name %></li>
+			<% end %>
+		</ul>
+	</td>
+</tr>
