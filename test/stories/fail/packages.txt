@@ -5,7 +5,7 @@ A user is trying to create a new package, but makes some errors
 PASSED
 
 A user wants to add a complex set of verification tests to a package
-ERROR: Not yet implemented
+ERROR: Have not implemented add install validation reactions, reordering or ivr reordering
 
 A user wants to search for all the packages with a certain word in the name
 PASSED

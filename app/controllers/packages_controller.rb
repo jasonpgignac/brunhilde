@@ -14,6 +14,7 @@ class PackagesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @packages }
+      format.json { render :json => @packages }
     end
   end
 

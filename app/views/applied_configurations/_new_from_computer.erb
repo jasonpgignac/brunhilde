@@ -1,8 +1,10 @@
-<a href="#" class="jqmClose">X</a>
+
 <div id="configuration_search_form">
 	<h3>Adding new steps to the build...</h3>
-	Search: <%= form_tag(configurations_url(:format => :json), :remote => true, :method => :get) do %>
+
+	Search Configurations: <%= form_tag(configurations_url(:format => :json), :remote => true, :method => :get) do %>
 		<%= text_field_tag :query %><br />
+
 		<%= submit_tag "Search"%>
 	<% end %>
 </div>
@@ -20,6 +22,7 @@
 </div>
 
 
+
 <%= javascript_tag do %>
 
 jQuery("document").ready(function() {	
@@ -33,7 +36,6 @@ jQuery("document").ready(function() {
 		json = JSON.parse(json)	
 		if(json.length > 0) {
 			jQuery.each(json, function(index, config) {
-				jQuery.dump(config)
 				option_tag = "<option value='" + config.configuration.id + "'>" + config.configuration.name + "</option>"
 				jQuery(option_tag).appendTo(select_tag)
 			})
@@ -45,7 +47,8 @@ jQuery("document").ready(function() {
 		
 	jQuery("div#configuration_select_form form")
 		.bind("ajax:success", function(xhr, data, status) {
-			jQuery("#new_ac_form").jqmHide()
+			jQuery("div#configuration_select_form").hide();
+			jQuery("#new_ac_form").jqmHide();
     	});
 	
 	jQuery("div#configuration_select_form").hide()

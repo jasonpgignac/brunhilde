@@ -22,7 +22,6 @@ Brunhilde::Application.routes.draw do |map|
       resources :install_validation_reactions
     end
   end
-  resources :package_test_reactions
   resources :user_sessions
   resources :users
   match "login" => "user_sessions#new"

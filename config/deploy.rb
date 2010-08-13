@@ -7,11 +7,11 @@ set :user, "ptadmin"
 set :password, "sys051976"
 set :runner, "ptadmin"
 
-set :deploy_to, "/Volumes/Untitled/brunhilde0.2"
+set :deploy_to, "/Volumes/Repository/brunhilde0.3"
 
-role :web, "ussatx-xsod-001"
-role :db, "ussatx-xsod-001", :primary => true
-role :app, "ussatx-xsod-001"
+role :web, "ususrl-xsod-004.pcroot.com"
+role :db, "ususrl-xsod-004.pcroot.com", :primary => true
+role :app, "ususrl-xsod-004.pcroot.com"
 
 deploy.task :restart, :roles => :app do
   run "touch #{current_path}/tmp/restart.txt"

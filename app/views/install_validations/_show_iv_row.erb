@@ -10,6 +10,6 @@
 			<% end %>
 		</table>
 	</td>
-	<td><%= link_to 'Edit', edit_package_install_validation_path(@package, @install_validation) %></td>
-	<td><%= link_to 'Destroy', package_install_validation_path(@package, @install_validation), :confirm => 'Are you sure?', :method => :delete %></td>
+	<td><%= link_to 'Edit', edit_package_install_validation_path(@package, @install_validation), :remote => true, :class => "edit_iv_link"  %></td>
+	<td><%= link_to 'Destroy', package_install_validation_path(@package, @install_validation), :confirm => 'Are you sure?', :method => :delete, :remote => true, :class => "delete_iv_link" %></td>
 </tr>

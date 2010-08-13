@@ -28,8 +28,8 @@
 						<% end %>
 					</table>
 				</td>
-				<td><%= link_to 'Edit', edit_package_install_validation_path(@package, pt) %></td>
-	    		<td><%= link_to 'Destroy', package_install_validation_path(@package, pt), :confirm => 'Are you sure?', :method => :delete, :remote => true, :class	=> "delete_link" %></td>
+				<td><%= link_to 'Edit', edit_package_install_validation_path(@package, pt), :remote => true, :class => "edit_iv_link" %></td>
+	    		<td><%= link_to 'Destroy', package_install_validation_path(@package, pt), :confirm => 'Are you sure?', :method => :delete, :remote => true, :class	=> "delete_iv_link" %></td>
 			</tr>
 		<% end %>
 	</table>
@@ -60,16 +60,63 @@
 				jQuery("#new_install_validation")
 					.bind("ajax:success", function(xhr, data, status) {
 						jQuery("#install_validations_table").append(data).show()
-						jQuery(this).parent().detach();
 						jQuery("#new_iv_link").show();
+						jQuery(this).parent().detach();
+						restyleTable();
 					});
 				jQuery("#cancel_new_install_validation")
 					.click( function() {
 						jQuery(this).parent().parent().detach();
 						jQuery("#new_iv_link").show();
+						restyleTable();
 					})
 				jQuery("#new_iv_link").hide();
+				restyleTable();
 			});
 	<% end %>
-
+	
+	<%= javascript_tag do %>
+		// edit_iv_link handler
+		jQuery(".edit_iv_link")
+			.live("ajax:success", function(xhr, data, status) {
+				jQuery(this)
+					.parent()
+						.parent()
+							.replaceWith(data)
+						
+						
+				jQuery(".edit_iv_row")
+					.bind("ajax:success", function(xhr, data, status) {
+						jQuery(this).replaceWith(data);
+						restyleTable();
+					});
+				jQuery(".cancel_edit_install_validation")
+					.bind("ajax:success", function(xhr, data, status) {
+						jQuery(this).parent().parent().replaceWith(data)
+						restyleTable();
+					});
+				restyleTable();
+			})
+	<% end %>
+	
+	<%= javascript_tag do %>
+		jQuery(".delete_iv_link")
+			.live("ajax:success", function(xhr, data, status) {
+				if(jQuery("#install_validations_table").find('tr').length === 2) {
+					jQuery("#install_validations_table").hide();
+				}
+				jQuery(this)
+					.parent()
+						.parent()
+							.detach();
+				restyleTable();				
+			})
+	<% end %>
+	
+	<%= javascript_tag do %>
+		function restyleTable() {
+			jQuery("#install_validations_table").find("tr:odd").removeClass("even odd").addClass("odd")
+			jQuery("#install_validations_table").find("tr:even").removeClass("even odd").addClass("even")
+		}
+	<% end %>
 <% end %>

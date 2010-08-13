@@ -28,7 +28,20 @@
 
 <%= link_to 'Edit', edit_computer_path(@computer) %> |
 <%= link_to 'Back', computers_path %>
-<div id="new_ac_form" class="jqmWindow">Please wait... <img src="/images/busy.gif" alt="loading" /></div>
+<div id="new_ac_form" class="jqmWindow">
+	<a href="#" class="jqmClose">X</a>
+	<div id="tabs">
+	    <ul>
+	        <li><a href="<%= new_computer_applied_configuration_path(@computer, :search_for => "configurations") %>"><span>Configurations</span></a></li>
+	        <li><a href="<%= new_computer_applied_configuration_path(@computer, :search_for => "packages") %>"><span>Packages</span></a></li>
+	    </ul>
+	    <div id="configurations-tab">
+		</div>
+		<div id="packages-tab">
+		</div>
+	</div>
+</div>
+		
 
 
 
@@ -64,15 +77,13 @@
 	
 	<%= javascript_tag do %>
 		// add new applied_configuration behaviour to the 'add' link
-		
 		jQuery(document).ready(function(){
 			div = jQuery('.jqmWindow')
 			div.jqm({
-				ajax: 		'<%= new_computer_applied_configuration_path(@computer) %>',
 				trigger:	'a#add_ac'
-			})
-			jQuery('<a class="close_jqm">"X"</a>').appendTo(div)
-			div.jqmAddClose(".close_jqm")
+			});
+			
+			$("#tabs").tabs();
 		})
 	<% end %>		
 	

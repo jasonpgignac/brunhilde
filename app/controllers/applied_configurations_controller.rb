@@ -13,7 +13,8 @@ class AppliedConfigurationsController < ApplicationController
     @computer = Computer.find(params[:computer_id])
     @applied_configuration = AppliedConfiguration.new
     if request.xhr?
-      render :partial => "new_from_computer"
+      render :partial => "new_from_computer" if params[:search_for] == "configurations"
+      render :partial => "new_hosted_from_computer" if params[:search_for] == "packages"
     end
   end
   def show

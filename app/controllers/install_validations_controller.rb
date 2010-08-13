@@ -16,6 +16,7 @@ class InstallValidationsController < ApplicationController
     @install_validation = InstallValidation.find(params[:id])
     raise ActiveRecord::RecordNotFound unless @install_validation.package == @package
     respond_to do |format|
+      format.html { render :partial => "show_iv_row"}
       format.json  { render :json => @install_validation }
       format.xml  { render :xml => @install_validation }
     end
@@ -32,6 +33,23 @@ class InstallValidationsController < ApplicationController
       end
       format.json  { render :json => @install_validation }
       format.xml  { render :xml => @install_validation }
+    end
+  end
+  
+  def edit
+    @install_validation = InstallValidation.find(params[:id])
+    render :partial => "edit_iv_row"
+  end
+  
+  def update
+    @install_validation = InstallValidation.find(params[:id])
+    respond_to do |format|
+      if @install_validation.update_attributes(params[:install_validation])
+        flash[:notice] = 'Validation was successfully updated.'
+        format.html { render :partial => "show_iv_row" }
+      else
+        format.html { render :action => "edit" }
+      end
     end
   end
 

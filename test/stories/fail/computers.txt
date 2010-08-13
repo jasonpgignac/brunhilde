@@ -2,7 +2,7 @@ A user wishes to create a new computer record, with some existing configs.
 PASSED
 
 A user tries to create a computer, but it is invalid
-ERROR: Cannot test configs, of course
+PASSED
 
 A user wishes to search the computers by name
 ERROR: Not yet implemented
@@ -17,4 +17,10 @@ A user wants to edit the configurations or order of an existing computer
 PASSED
 
 A user wants to add individual packages to an existing computer
+PASSED
+
+A user wants add configurations, but not see ones for the wrong platform
+ERROR: Not yet implemented
+
+A user wants to add packages, but not see ones for the wrong platform
 ERROR: Not yet implemented
