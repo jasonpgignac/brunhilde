@@ -49,7 +49,7 @@ class Computer < ActiveRecord::Base
                 ":prefix",
                 "REM Load Environment Variables",
                 "REM --Reads each line from var.txt, and executes it",
-                "for /f \"tokens=* delims= \" %%a in (x:\\brunhilde\\var.txt) do (%%a)",
+                "CALL var.bat",
                 "",
                 "NET USE S: %BRUNHILDE_REPO_SRV% P@scpcs1nst /USER:PEROOT\\svc-eduhassatinst001",
                 "SET BRUNHILDE_REPO_SRV=S:"
@@ -80,7 +80,7 @@ class Computer < ActiveRecord::Base
                   ":prefix",
                   "REM Load Environment Variables",
                   "REM --Reads each line from var.txt, and executes it",
-                  "for /f \"tokens=* delims= \" %%a in (c:\\brunhilde\\var.txt) do (%%a)",
+                  "CALL var.bat",
                   "",
                   "REM Set up BRUNHILDEPHASE variable",
                   "if [%BRUNHILDEPHASE%]==[] (",
