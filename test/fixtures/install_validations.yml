@@ -1,23 +1,13 @@
-acrobat_is_running:
-    package: acrobat
-    name: Is Acrobat Running
-    rule_type: ExecRunning
-    rule_parameter: acrobat.exe
-    success_value: false
-    position: 0
-
 acrobat_has_file:
+    description: Acrobat has the acrobat.exe file
     package: acrobat
-    name: Does Acrobat Exist
-    rule_type: FileExists
-    rule_parameter: acrobat.exe
+    rule_type: "FileExists"
+    rule_parameter: "c:\program files\Adobe Acrobat 7\acrobat.exe"
     success_value: true
-    position: 0
-
-office_has_file:
+    
+office_has_file: 
+    description: Office has the word.exe file
     package: office
-    name: Does Office Exist
-    rule_type: FileExists
-    rule_parameter: word.exe
+    rule_type: "FileExists"
+    rule_parameter: "c:\program files\Office\word.exe"
     success_value: true
-    position: 0

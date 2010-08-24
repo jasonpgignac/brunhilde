@@ -42,7 +42,7 @@ class ActiveSupport::TestCase
   def valid_install_validation
     InstallValidation.new(
       :package        => valid_package,
-      :name           => "Test Rule",
+      :description    => "Test Rule",
       :rule_type      => "ExecRunning",
       :rule_parameter => "Test Data",
       :success_value  => true)

@@ -1,0 +1,13 @@
+<tr id="edit_iv_row_<%= @install_validation.id %>" class="edit_iv_row">
+	<td>
+		<%= form_for([@package, @install_validation], :remote => true) do |f| %>
+				There 
+				<%= f.select( :success_value, [["is", true],["is not", false]]) %>
+				<%= f.select( :rule_type, DESCRIPTION_FOR_RULE_TYPE.map{ |value, display| [display + "...", value] } ) %>
+				<%= f.text_field( :rule_parameter)%>
+				<%= f.submit( "Save")%></td>
+		<% end %>
+	</td>
+	<td></td>
+	<td><%= link_to("Cancel", package_install_validation_path(@package, @install_validation), :remote => true, :class => "cancel_edit_install_validation", :id => @install_validation.id) %></td>
+</tr>

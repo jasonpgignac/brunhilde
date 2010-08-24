@@ -29,10 +29,10 @@ class ComputerTest < ActiveSupport::TestCase
     c.applied_configuration_list = c.applied_configurations.map { |ac| ac.id }
     assert c.valid?, "was not valid with a valid ac_list"
   end
-  test "should not validate if applied_configuration_list contains ac records that are not attached" do
+  test "should not validate if applied_configuration_list contains ac records that are not attached to the record" do
     c = computers(:default)
     c.applied_configuration_list = c.applied_configurations.map { |ac| ac.id }
-    c.applied_configuration_list << applied_configurations(:applied_configurations_test_base)
+    c.applied_configuration_list << applied_configurations(:applied_configurations_test_base).id
     assert !c.valid?, "was valid with an extra ac in the ac_list"
   end
   test "should not validate if applied_configuration_list does not contain all the attached ac records" do

@@ -1,9 +1,11 @@
-office_has_file_error:
-    install_validation: office_has_file
-    command: fatalerror
-    parameter: Office Word file was missing - office install failed!
-
 acrobat_has_file_error:
-    install_validation: acrobat_has_file
-    command: fatalerror
-    parameter: Acrobat file was missing - Acrobat install failed!
+    command: "wait"
+    parameter: "30"
+    repetitions: 3
+    install_validation: "acrobat_has_file"
+    
+office_has_file_error:
+    command: "wait"
+    parameter: "30"
+    repetitions: 3
+    install_validation: "office_has_file"

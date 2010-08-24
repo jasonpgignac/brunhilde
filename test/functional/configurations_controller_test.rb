@@ -6,7 +6,7 @@ class ConfigurationsControllerTest < ActionController::TestCase
     get :index
     assert_response :success, "index page was not rec'd successfully"
     assert_not_nil assigns(:configurations), "index did not set @configurations"
-    assert_equal assigns(:configurations).count, Configuration.all.count, "index did not return all configs"
+    assert_equal assigns(:configurations).count, Configuration.find_all_by_host_computer_id(nil).count, "index did not return all configs"
   end
   
   test "should get a searched subset of index" do
@@ -18,6 +18,10 @@ class ConfigurationsControllerTest < ActionController::TestCase
     assert_equal assigns(:configurations).count, 1, "index did not return 1 record"
     assert_equal assigns(:configurations)[0], c, "index returned the wrong record"
     assert_equal assigns(:query), "Eelslippers", "query was not set"
+  end
+  
+  test "index should not return a hosted record on search" do
+    assert false, "Test not yet implemented"
   end
   
   # show

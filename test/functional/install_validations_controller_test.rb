@@ -52,7 +52,7 @@ class InstallValidationsControllerTest < ActionController::TestCase
       :package_id  => @package.id,
       :install_validation => {
         :package_id  => packages(:acrobat).id,
-        :name           => "Test Rule",
+        :description     => "Test Rule",
         :rule_type      => "ExecRunning",
         :rule_parameter => "Test Data",
         :success_value  => true

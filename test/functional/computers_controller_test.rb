@@ -172,10 +172,8 @@ class ComputersControllerTest < ActionController::TestCase
     put(:update, {
       :id       => computers(:default),
       :computer => {
-        :applied_configuration_list => [
-          applied_configurations(:default_sample_site).id,
-          applied_configurations(:default_base).id
-        ]
+        :applied_configuration_list => 
+            computers(:default).applied_configurations.reverse.map { |ac| ac.id }
       }
     })
     assert_response :redirect
