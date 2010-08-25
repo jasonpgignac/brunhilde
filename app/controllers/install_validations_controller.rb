@@ -48,7 +48,8 @@ class InstallValidationsController < ApplicationController
         flash[:notice] = 'Validation was successfully updated.'
         format.html { render :partial => "show_iv_row" }
       else
-        format.html { render :action => "edit" }
+        format.json { render :json => @install_validation.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @install_validation.errors, :status => :unprocessable_entity }
       end
     end
   end

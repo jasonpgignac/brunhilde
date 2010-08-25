@@ -93,6 +93,9 @@
 					.bind("ajax:success", function(xhr, data, status) {
 						jQuery(this).replaceWith(data);
 						restyleTable();
+					})
+					.bind("ajax:failure", function(xhr, data, status) {
+						alert(data.responseText);
 					});
 				jQuery(".cancel_edit_install_validation")
 					.bind("ajax:success", function(xhr, data, status) {
