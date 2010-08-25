@@ -63,7 +63,11 @@
 						jQuery("#new_iv_link").show();
 						jQuery(this).parent().detach();
 						restyleTable();
+					})
+					.bind("ajax:failure", function(xhr, data, status) {
+						alert(data.responseText);
 					});
+					
 				jQuery("#cancel_new_install_validation")
 					.click( function() {
 						jQuery(this).parent().parent().detach();
