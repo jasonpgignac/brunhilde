@@ -12,11 +12,6 @@ class InstallValidationTest < ActiveSupport::TestCase
     iv.package = nil
     assert !iv.valid?, "Was valid without a package"
   end
-  test "should validate presence of a description" do
-    iv = valid_install_validation
-    iv.description = nil
-    assert !iv.valid?, "Was valid without a name"
-  end
   test "should validate presence of a rule_type, and that it is in the ruleset" do
     iv = valid_install_validation
     iv.rule_type = nil
