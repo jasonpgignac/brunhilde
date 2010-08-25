@@ -3,7 +3,13 @@ class ComputersController < ApplicationController
   # GET /computers
   # GET /computers.xml
   def index
-    @computers = Computer.all
+    if params[:query]
+      @computers = Computer.search(params[:query])
+      @query = params[:query]
+    else
+      @computers = Computer.all
+    end
+    
 
     respond_to do |format|
       format.html # index.html.erb

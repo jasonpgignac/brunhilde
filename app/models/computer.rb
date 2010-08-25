@@ -19,6 +19,14 @@ class Computer < ActiveRecord::Base
   PRESCRIPT_PHASE = 0
   POSTSCRIPT_PHASE = 1
   
+  def self.search(query)
+     if !query.to_s.strip.empty?
+        tokens = query.split.collect {|c| "%#{c.downcase}%"}
+        computers = find_by_sql(["select c.* from computers c where #{ (["(lower(c.name) like ?)"] * tokens.size).join(" and ") } order by c.name desc", *(tokens).sort])
+     else
+        []
+     end
+  end
   def postscript
     if (self.platform == "PC")
       pc_postscript_prefix + pc_script_body(POSTSCRIPT_PHASE) + pc_postscript_suffix

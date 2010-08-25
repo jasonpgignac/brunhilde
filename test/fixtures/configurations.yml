@@ -9,7 +9,7 @@ sample_site:
     platform: PC
     
 test_hosted:
-    name: John Steinbeck Grapery
+    name: John Steinbeck Grapery Hosted
     notes: This configuration is hosted and will test search functions
     platform: PC
     host_computer: default

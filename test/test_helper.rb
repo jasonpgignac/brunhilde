@@ -11,7 +11,7 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def valid_computer(mac="12345678")
-    Computer.new(:mac_address => mac, :platform => "PC")
+    Computer.new(:mac_address => mac, :name => mac, :platform => "PC")
   end
   def valid_configuration(name="Test Configuration")
     Configuration.new(:name => name, :platform => "PC")

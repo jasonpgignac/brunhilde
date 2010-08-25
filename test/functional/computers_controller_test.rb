@@ -9,7 +9,14 @@ class ComputersControllerTest < ActionController::TestCase
     assert assigns(:computers).count == Computer.all.count, "computers#index did not return all computers"
   end
   test "should get a searched subset of index" do
-    assert false, "Test not yet implemented"
+    c = valid_computer("Proust's Eelslipper from Nike")
+    c.save
+    get :index, {:query => "Eelslipper"}
+    assert_response :success, "index page was not rec'd successfully"
+    assert_not_nil assigns(:computers), "index did not set collection"
+    assert_equal assigns(:computers).count, 1, "index did not return 1 record"
+    assert_equal assigns(:computers)[0], c, "index returned the wrong record"
+    assert_equal assigns(:query), "Eelslipper", "query was not set"
   end
   
   # show

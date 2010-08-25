@@ -35,6 +35,20 @@ class ComputerTest < ActiveSupport::TestCase
     c.applied_configuration_list << applied_configurations(:applied_configurations_test_base).id
     assert !c.valid?, "was valid with an extra ac in the ac_list"
   end
+  test "should return a list of matching, case-insensitive names on search" do
+    c = valid_computer("Unique Name")
+    c.save
+    computers = Computer.search("Unique")
+    assert computers.include?(c), "Does not include the sought item"
+    assert_equal computers.size, 1, "Includes more than 1 item"
+    computers = Computer.search("unique")
+    assert computers.include?(c), "Does not include the sought item on case insensitive search"
+    assert_equal computers.size, 1, "Includes more than 1 item on case insensitive search"
+  end
+  test "should return a null list if there are no matches on search" do
+    computers = Computer.search("Streudelwire")
+    assert_equal computers.size, 0, "Found items when it shouldn't"
+  end
   test "should not validate if applied_configuration_list does not contain all the attached ac records" do
     c = computers(:default)
     c.applied_configuration_list = c.applied_configurations.map { |ac| ac.id }

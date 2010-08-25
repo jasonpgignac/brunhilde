@@ -21,7 +21,11 @@ class ConfigurationsControllerTest < ActionController::TestCase
   end
   
   test "index should not return a hosted record on search" do
-    assert false, "Test not yet implemented"
+    get :index, {:query => "Hosted"}
+    assert_response :success, "index page was not rec'd successfully"
+    assert_not_nil assigns(:configurations), "index did not set collection"
+    assert_equal assigns(:configurations).count, 0, "index did not return empty record set"
+    assert_equal assigns(:query), "Hosted", "query was not set"
   end
   
   # show
