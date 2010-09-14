@@ -7,8 +7,6 @@ class AppliedConfiguration < ActiveRecord::Base
   validate :contains_valid_package_id_or_valid_configuration_id
   validate :platform_matches
   validate :configuration_is_not_hosted_by_another_computer
-  validates_associated :configuration
-  validates_associated :package
   
   after_save :convert_package_to_hosted_configuration, :if => :waiting_for_package_conversion?
   attr_accessor :package_id
