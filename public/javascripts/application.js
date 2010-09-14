@@ -25,3 +25,16 @@ $(document).ready(function() {
 function getJSONResponseFrom(url) {
 	return JSON.parse(jQuery.ajax({url: url, type: "GET", async: false}).responseText)
 }
+
+// Removes a nested row, particularly from the IV/IVR form
+function remove_fields(link) {
+	$(link).prev("input[type=hidden]").val("1");
+	$(link).closest(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+	var new_id = new Date().getTime();
+	var regexp = new RegExp("new_" + association, "g")
+	$(link).next().css('background-color','red')
+	//append(content.replace(regexp, new_id));
+}

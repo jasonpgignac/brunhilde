@@ -8,9 +8,9 @@ DESCRIPTION_FOR_RULE_TYPE = {
 }
 COMMAND_TYPES = ["wait","repeat","fatalerror","log","custom"]
 DESCRIPTION_FOR_COMMAND_TYPE = {
-  "wait"        => 'Wait for %p seconds',
-  "repeat"      => 'Loop back and test again %p times',
-  "fatalerror"  => 'Throw a fatal error: %p',
-  "log"         => 'Write a message to the log: %p',
-  "custom"      => 'Run the following executable: %p'
+  "wait"        => 'Wait for this many seconds:',
+  "repeat"      => 'Loop back and test again this many times:',
+  "fatalerror"  => 'Throw a fatal error:',
+  "log"         => 'Write a message to the log:',
+  "custom"      => 'Run the following executable:'
 }

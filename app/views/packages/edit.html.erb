@@ -38,9 +38,29 @@
 			</tr>
 		</table>
 	</div>
-	
-    <%= f.submit "Update" %>
+	<div id="install_validations">
+		<%= link_to_add_fields("Add New Install Posttest", f, :install_validations) %>
+
+		<%= f.fields_for :install_validations do |iv|%>
+			<%= render "install_validation_fields", :f => iv %>
+		<% end %>
+	</div>	
+	<%= f.submit "Update" %>
 <% end %>
 
 <%= link_to 'Show', @package %> |
 <%= link_to 'Back', packages_path %>
+
+<% content_for :javascript do %>
+	<%= javascript_tag do %>
+		jQuery(".add_new_subrow")
+			.live('click', function() {
+				link = $(event.target);
+				association = link.attr('association');
+				content = link.attr('content');
+				var new_id = new Date().getTime();
+				var regexp = new RegExp("new_" + association, "g")
+				$(link).parent().append(content.replace(regexp, new_id));
+			})
+	<% end %>
+<% end %>

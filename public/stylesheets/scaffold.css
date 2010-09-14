@@ -94,3 +94,15 @@ td {
 .even {
 	background-color: #AAA;
 }
+
+.install_validation {
+	border-top: 1px black solid;
+	background-color: #FFF;
+}
+.install_validation_reactions {
+	background-color: #DDD;
+	margin-left: 15px;
+}
+.install_validation_reaction {
+	border-bottom: 1px #888 dotted;
+}

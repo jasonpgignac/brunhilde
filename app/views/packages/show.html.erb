@@ -24,16 +24,13 @@
 				<td>
 					<table>
 						<% pt.install_validation_reactions.each do |ivr| %>
-							<tr><%= reaction_string(ivr) %></tr>
+							<tr><td><%= reaction_string(ivr) %></td></tr>
 						<% end %>
 					</table>
 				</td>
-				<td><%= link_to 'Edit', edit_package_install_validation_path(@package, pt), :remote => true, :class => "edit_iv_link" %></td>
-	    		<td><%= link_to 'Destroy', package_install_validation_path(@package, pt), :confirm => 'Are you sure?', :method => :delete, :remote => true, :class	=> "delete_iv_link" %></td>
 			</tr>
 		<% end %>
 	</table>
-	<%= link_to 'New Test...', new_package_install_validation_path(@package.id), :remote => :true, :id => "new_iv_link"%>
 </div>
 <%= link_to 'Edit', edit_package_path(@package) %> |
 <%= link_to 'Back', packages_path %>
@@ -126,4 +123,5 @@
 			jQuery("#install_validations_table").find("tr:even").removeClass("even odd").addClass("even")
 		}
 	<% end %>
+	
 <% end %>

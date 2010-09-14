@@ -1,0 +1,19 @@
+<div class="install_validation fields">
+	<div>
+		If there <%= f.select( :success_value, [["is", true],["is not", false]]) %>
+		<%= f.select( :rule_type, 
+				DESCRIPTION_FOR_RULE_TYPE.map{ |value, display| [display + "...", value] } 
+		) %>
+		<%= f.text_field( :rule_parameter)%>
+	</div>
+	<div class="install_validation_reactions">
+		Then... (<%= link_to_add_fields("Add action", f, :install_validation_reactions) %>)
+		<%= f.fields_for :install_validation_reactions do |ivr|%>
+			<%= render "install_validation_reaction_fields", :f => ivr %>
+		<% end %>
+		
+	</div>
+	<%= f.hidden_field :id %>
+	<%= f.hidden_field :_destroy %>
+	<%= link_to_function "Remove", "remove_fields(this)" %>
+</div>

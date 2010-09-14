@@ -29,4 +29,7 @@ class InstallValidationTest < ActiveSupport::TestCase
     iv.success_value = nil
     assert !iv.valid?, "Was valid without a success_value"
   end
+  test "should accept nested attributes for reactions" do
+    assert false, "Test not yet implemented"
+  end
 end

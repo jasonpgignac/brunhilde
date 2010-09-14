@@ -5,6 +5,7 @@ class InstallValidation < ActiveRecord::Base
   acts_as_list  :scope => :package
   validates_presence_of   :package, :success_value, :rule_type, :rule_parameter
   validates_inclusion_of :rule_type, :in => RULE_TYPES
+  accepts_nested_attributes_for :install_validation_reactions, :allow_destroy => true
   
   def self.rule_types
     return RULE_TYPES

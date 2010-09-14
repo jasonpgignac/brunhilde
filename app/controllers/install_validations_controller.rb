@@ -26,7 +26,10 @@ class InstallValidationsController < ApplicationController
   # GET /install_validations/new.xml
   def new
     @install_validation = InstallValidation.new
-
+    @install_validation.install_validation_reactions << InstallValidationReaction.new
+    @install_validation.install_validation_reactions << InstallValidationReaction.new
+    @install_validation.install_validation_reactions << InstallValidationReaction.new
+    
     respond_to do |format|
       if(request.xhr?)
         format.html { render :partial => "new_iv_row"}

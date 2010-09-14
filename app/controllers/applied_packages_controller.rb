@@ -25,8 +25,8 @@ class AppliedPackagesController < ApplicationController
     @applied_package.configuration = @configuration
     respond_to do |format|
       if @applied_package.save
+        format.json { render :json => @applied_package.to_json(:include => :package), :status => :created }
         format.xml  { render :xml => @applied_package, :status => :created }
-        format.json { render :json => @applied_package, :status => :created }
       else
         format.json { render :json => @applied_package.errors, :status => :unprocessable_entity }
         format.xml  { render :xml => @applied_package.errors, :status => :unprocessable_entity }

@@ -91,37 +91,16 @@ class ConfigurationsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
-  #refactor these
-  def add_package
+  
+  def sort
     @configuration = Configuration.find(params[:id])
-    unless(params[:package_id])
-      if(params[:query])
-        @packages = Package.search(params[:query])
-      end
-      render :update do |page|
-        page << "RedBox.showInline('hidden_content_alert')"
-        page.replace_html "hidden_content_alert", :partial => "select_package_rb"
-      end
-    else
-      @package = Package.find(params[:package_id])
-      @configuration.packages << @package
-      flash[:notice]="Package successfully added to end of configuration"
-      render :update do |page|
-        page.replace_html 'applied_packages', :partial => 'applied_packages'
-        page.replace_html 'flash', :partial => 'shared/flashes'
-        page << "RedBox.close()"
-      end
+    @configuration.applied_packages.each do |applied_package|
+      applied_package.position = params['item'].index(applied_package.id.to_s) + 1
+      applied_package.save
     end
+    render :nothing => true
   end
-  def remove_package
-    @configuration = Configuration.find(params[:id])
-    @applied_package = AppliedPackage.find(params[:applied_package_id])
-    @applied_package.destroy
-    render :update do |page|
-      page.replace_html 'applied_packages', :partial => 'applied_packages'
-    end
-  end
+  
   private
     def set_current_tab
       @current_tab = "configurations"
