@@ -1,0 +1,15 @@
+<tr class="<%= cycle("even", "odd") %>">
+	<td>
+		There <%= @install_validation.success_value ? "is" : "is not" %> <%= condition_string(@install_validation) %>
+		<br />
+	</td>
+	<td>
+		<table>
+			<% @install_validation.install_validation_reactions.each do |ivr| %>
+				<tr><td><%= reaction_string(ivr) %></td></tr>
+			<% end %>
+		</table>
+	</td>
+	<td><%= link_to 'Edit', edit_package_install_validation_path(@package, @install_validation), :remote => true, :class => "edit_iv_link"  %></td>
+	<td><%= link_to 'Destroy', package_install_validation_path(@package, @install_validation), :confirm => 'Are you sure?', :method => :delete, :remote => true, :class => "delete_iv_link" %></td>
+</tr>

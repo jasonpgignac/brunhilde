@@ -1,26 +1,35 @@
 <h1>Listing packages</h1>
-<% form_tag("packages", :method => 'get') do%>
+<%= form_tag("packages", :method => 'get') do %>
 	( Search: <%= text_field_tag(:query, @query, :size => 15) %>
 	<%= submit_tag("->")%> )
 <% end %>
-<table>
-  	<tr>
-		<th>Name</th>
-		<th>Stage</th>
-		<th>Source Path</th>
-  	</tr>
 
-	<% for package in @packages %>
-  		<tr class="<%= cycle("even", "odd") %>">
-			<td><%= package.name %></td>
-			<td><%= package.deployment_stage %></td>
-			<td><%= package.source_path %></td>
-    		<td><%= link_to 'Show', package %></td>
-    		<td><%= link_to 'Edit', edit_package_path(package) %></td>
-    		<td><%= link_to 'Destroy', package, :confirm => 'Are you sure?', :method => :delete %></td>
-  		</tr>
-	<% end %>
-</table>
+<% if @query%>
+	<p>Results for "<%= @query %>". <%= link_to("Show all packages...", packages_path) %></p>
+<% end %>
+
+<% if @packages.size > 0 %>
+	<table>
+	  	<tr>
+			<th>Name</th>
+			<th>Stage</th>
+			<th>Source Path</th>
+	  	</tr>
+
+		<% for package in @packages %>
+	  		<tr class="<%= cycle("even", "odd") %>">
+				<td><%= package.name %></td>
+				<td><%= package.deployment_stage %></td>
+				<td><%= package.source_path %></td>
+	    		<td><%= link_to 'Show', package %></td>
+	    		<td><%= link_to 'Edit', edit_package_path(package) %></td>
+	    		<td><%= link_to 'Destroy', package, :confirm => 'Are you sure?', :method => :delete %></td>
+	  		</tr>
+		<% end %>
+	</table>
+<% else %>
+	<p><em>No results found</em></p>
+<% end %>
 
 <br />
 

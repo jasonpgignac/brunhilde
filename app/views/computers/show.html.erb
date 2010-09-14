@@ -1,38 +1,90 @@
-<p>
+<div class="editInPlace">
   <b>Mac address:</b>
-  <%=h @computer.mac_address %>
-</p>
+  <div class="editInPlace"><%=h @computer.mac_address %></div>
+</div>
 
-<p>
+<div class="editInPlace">
   <b>Name:</b>
-  <%=h @computer.name %>
-</p>
+  <div class="editInPlace"><%=h @computer.name %></div>
+</div>
 
-<p>
+<div>
   <b>Platform:</b>
-  <%=h @computer.platform %>
-</p>
+  <div class="editInPlace"><%=h @computer.platform %></div>
+</div>
 
-<p>
+<div>
 	<b>Configurations:</b>
-</p>
-<p>
-	<%= link_to_remote("Add Package...", 
-						:url =>	{
-									:action => "add_package", 
-									:id => @computer
-								})%>
-</p>
-<p>
-	<%= link_to_remote("Add Configuration...", 
-						:url =>	{
-									:action => "add_configuration", 
-									:id => @computer
-								})%>
-</p>
+</div>
+<div>
+	<%= link_to( 	"Add...", 
+					"#",
+					:id => "add_ac")%>
+</div>
+
 <div id="applied_configurations">
 	<%= render :partial => "applied_configurations"%>
 </div>
 
 <%= link_to 'Edit', edit_computer_path(@computer) %> |
 <%= link_to 'Back', computers_path %>
+<div id="new_ac_form" class="jqmWindow">
+	<a href="#" class="jqmClose">X</a>
+	<div id="tabs">
+	    <ul>
+	        <li><a href="<%= new_computer_applied_configuration_path(@computer, :search_for => "configurations") %>"><span>Configurations</span></a></li>
+	        <li><a href="<%= new_computer_applied_configuration_path(@computer, :search_for => "packages") %>"><span>Packages</span></a></li>
+	    </ul>
+	    <div id="configurations-tab">
+		</div>
+		<div id="packages-tab">
+		</div>
+	</div>
+</div>
+		
+
+
+
+<% content_for :javascript do %>
+
+	<%= javascript_tag do %>
+		// sortable applied_configurations
+		jQuery(document).ready(function(){
+		    $('#applied-configuration-list').children().sortable({
+				axis: 'y',
+				containment: 'parent',
+				cursor: 'crosshair',
+				scroll: true,
+				opacity: 0.4,
+				update: function(){
+					serialized_sort = $('#applied-configuration-list')
+										.children()
+										.sortable(	'serialize',
+														{key:'computer[applied_configuration_list][]'})
+			    	jQuery.ajax({
+						type: 		'put', 
+			           	data: 		serialized_sort + '&id=<%=@computer.id-%>', 
+			           	dataType: 	'script', 
+			           	success: 	function(request){
+			            	$('#applied-configuration-list').effect('highlight');
+			           	},
+			           	url: '<%= computer_path(@computer, :format => :xml) %>'
+					})
+				}
+			})
+		})
+	<% end %>
+	
+	<%= javascript_tag do %>
+		// add new applied_configuration behaviour to the 'add' link
+		jQuery(document).ready(function(){
+			div = jQuery('.jqmWindow')
+			div.jqm({
+				trigger:	'a#add_ac'
+			});
+			
+			$("#tabs").tabs();
+		})
+	<% end %>		
+	
+<% end %>

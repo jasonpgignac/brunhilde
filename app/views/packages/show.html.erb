@@ -6,26 +6,122 @@
 	Executable: <%= @package.executable %><br />
 	Deployment Stage: <%= @package.deployment_stage %><br />
 </p>
-<p>
-	<div>
-		Tests:
-		<table>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
+<div>
+	<% if @package.install_validations.size > 0 %>
+		Tests:<br />
+	<% end %>
+	<table id="install_validations_table">
+		<tr>
+			<th>If...</th>
+			<th>Then...</th>
+		</tr>
+		<% @package.install_validations.each do |pt| %>
+			<tr id="<%=pt.class.to_s.downcase %>_<%= pt.id %>" class="<%= cycle("even", "odd") %>">
+				<td>
+					There <%= pt.success_value ? "is" : "is not" %> <%= condition_string(pt) %>
+					<br />
+				</td>
+				<td>
+					<table>
+						<% pt.install_validation_reactions.each do |ivr| %>
+							<tr><td><%= reaction_string(ivr) %></td></tr>
+						<% end %>
+					</table>
+				</td>
 			</tr>
-			<% @package.package_tests.each do |pt|%>
-				<tr class="<%= cycle("even", "odd") %>">
-					<td><%= pt.name %></td>
-					<td><%= pt.description %></td>
-					<td><%= link_to 'Show', package_test_path(@package, pt) %></td>
-					<td><%= link_to 'Edit', edit_package_test_path(@package, pt) %></td>
-		    		<td><%= link_to 'Destroy', package_test_path(@package, pt), :confirm => 'Are you sure?', :method => :delete %></td>
-				</tr>
-			<% end %>
-		</table>
-		<%= link_to 'New Test...', new_package_test_path(@package.id)%>
-	</div>
-</p>
+		<% end %>
+	</table>
+</div>
 <%= link_to 'Edit', edit_package_path(@package) %> |
 <%= link_to 'Back', packages_path %>
+
+
+<% content_for :javascript do %>
+
+	
+	<% if @package.install_validations.size == 0 %>
+		<%= javascript_tag do %>
+			// Hide the IV table if there are no tests
+			jQuery("document").ready(function() {
+				jQuery("#install_validations_table").hide();
+			})
+		<% end %>
+	<% end %>
+	
+	
+	<%= javascript_tag do %>
+		// new_iv_link handler
+		jQuery("#new_iv_link")
+			.bind("ajax:success", function(xhr, data, status) {
+				jQuery("#install_validations_table").append(data).show();
+				jQuery("#new_install_validation")
+					.bind("ajax:success", function(xhr, data, status) {
+						jQuery("#install_validations_table").append(data).show()
+						jQuery("#new_iv_link").show();
+						jQuery(this).parent().detach();
+						restyleTable();
+					})
+					.bind("ajax:failure", function(xhr, data, status) {
+						alert(data.responseText);
+					});
+					
+				jQuery("#cancel_new_install_validation")
+					.click( function() {
+						jQuery(this).parent().parent().detach();
+						jQuery("#new_iv_link").show();
+						restyleTable();
+					})
+				jQuery("#new_iv_link").hide();
+				restyleTable();
+			});
+	<% end %>
+	
+	<%= javascript_tag do %>
+		// edit_iv_link handler
+		jQuery(".edit_iv_link")
+			.live("ajax:success", function(xhr, data, status) {
+				jQuery(this)
+					.parent()
+						.parent()
+							.replaceWith(data)
+						
+						
+				jQuery(".edit_iv_row")
+					.bind("ajax:success", function(xhr, data, status) {
+						jQuery(this).replaceWith(data);
+						restyleTable();
+					})
+					.bind("ajax:failure", function(xhr, data, status) {
+						alert(data.responseText);
+					});
+				jQuery(".cancel_edit_install_validation")
+					.bind("ajax:success", function(xhr, data, status) {
+						jQuery(this).parent().parent().replaceWith(data)
+						restyleTable();
+					});
+				restyleTable();
+			})
+	<% end %>
+	
+	<%= javascript_tag do %>
+		jQuery(".delete_iv_link")
+			.live("ajax:success", function(xhr, data, status) {
+				if(jQuery("#install_validations_table").find('tr').length === 2) {
+					jQuery("#install_validations_table").hide();
+				}
+				jQuery(this)
+					.parent()
+						.parent()
+							.detach();
+				restyleTable();				
+			})
+	<% end %>
+	
+	<%= javascript_tag do %>
+		function restyleTable() {
+			jQuery("#install_validations_table").find("tr:odd").removeClass("even odd").addClass("odd")
+			jQuery("#install_validations_table").find("tr:even").removeClass("even odd").addClass("even")
+		}
+	<% end %>
+	
+<% end %>

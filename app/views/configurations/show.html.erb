@@ -12,11 +12,7 @@
 	<b>Packages:</b>
 </p>
 <p>
-	<%= link_to_remote("Add Package...", 
-						:url =>	{
-									:action => "add_package", 
-									:id => @configuration
-								})%>
+	<button id="addPackage" value="Add Package...">Add Package...</button>
 </p>
 <div id="applied_packages">
 	<%= render :partial => "applied_packages"%>
@@ -28,3 +24,50 @@
 </p>
 <%= link_to 'Edit', edit_configuration_path(@configuration) %> |
 <%= link_to 'Back', configurations_path %>
+
+<div id="packageSearchDialog" title="Search for Packages">
+	<%= form_tag( "/packages.json", :remote => true, :method => :get, :id => "package_search_form" ) do %>
+		<%= text_field_tag :query%> 
+		<%= submit_tag "Search..."%>
+	<% end %>
+</div>
+<div id="packageSelectDialog" title="Select a Package">
+	<%= form_for([@configuration, AppliedPackage.new], :format => :json, :remote => true) do |f|%>
+		<%= f.select :package_id, {}, :id => 'packageSelect' %><br />
+		<%= f.submit "Add" %>
+	<% end %>
+</div>
+
+<% content_for :javascript do %>
+	<%= javascript_tag do %>
+		
+		$(document).ready(function() {
+			$('#packageSearchDialog').dialog({modal:true, autoOpen:false});
+			$('#packageSelectDialog').dialog({modal:true, autoOpen:false});
+		})
+		
+		jQuery("#package_search_form")
+			.live("ajax:success", function(xhr, data, status) {
+				packages = $.parseJSON(data);
+				$.each( packages, function(index, package) {
+					$('#packageSelectDialog form select').append("<option value='" + package.package.id + "'>" + package.package.name + "</option>");
+				});
+				$('#packageSearchDialog').dialog('close');
+				$('#packageSelectDialog').dialog('open');
+
+			})
+		
+		jQuery("#packageSelectDialog form")
+			.live("ajax:success", function(xhr, data, status) {
+				applied_package = $.parseJSON(data).applied_package;
+				
+				li = "<li id='item_"+ applied_package.id +"'>" + applied_package.package.name + " <a href='/configurations/<%= @configuration.id %>/applied_packages/" + applied_package.id + "' class='delete_applied_package' data-confirm='Are you sure?' data-method='delete' data-remote='true' rel='nofollow'>X</a><span class='handle'>[handle]</span></li>"
+				$('#packageSelectDialog').dialog('close');
+				$('#applied_packages ul').append(li);
+			})
+		$('#addPackage').click(function() {
+			$('#packageSearchDialog').dialog('open');
+		})
+	<% end %>
+<% end %>
+	

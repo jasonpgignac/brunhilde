@@ -1,0 +1,23 @@
+A user wishes to create a new standard configuration, with some existing packages.
+ERROR: Cannot add packages
+
+A user tries to create a configuration, but it is invalid
+ERROR: Cannot test packages, of course
+
+A user wishes to search the configurations by name
+ERROR: Not yet implemented
+
+A user wants to destroy an existing configuration
+PASSED
+
+A user wants to change an existing configurations internal fields (name, etc)
+PASSED
+
+A user wants to edit the packages or order of an existing configuration
+ERROR: Not yet implemented
+
+A user wishes to know where a given configuration is being used
+ERROR: Not yet implemented
+
+There are hosted configurations, and the user does not wish to see them in the larger list
+ERROR: Not yet implemented

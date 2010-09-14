@@ -9,18 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100216204632) do
-
-  create_table "ad_computers", :force => true do |t|
-    t.string   "remote_id"
-    t.integer  "content_server_id"
-    t.string   "name"
-    t.string   "user"
-    t.date     "last_cached"
-    t.date     "last_accessed"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20100714145540) do
 
   create_table "applied_configurations", :force => true do |t|
     t.integer  "configuration_id"
@@ -44,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20100216204632) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "platform"
+    t.integer  "owner_id"
   end
 
   create_table "configurations", :force => true do |t|
@@ -52,21 +42,22 @@ ActiveRecord::Schema.define(:version => 20100216204632) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "host_computer_id"
+    t.integer  "owner_id"
+    t.string   "platform"
   end
 
-  create_table "content_servers", :force => true do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "username"
-    t.string   "password"
-    t.string   "server_type"
+  create_table "install_validation_reactions", :force => true do |t|
+    t.string   "command"
+    t.string   "parameter"
+    t.integer  "repetitions"
+    t.integer  "install_validation_id"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "package_tests", :force => true do |t|
+  create_table "install_validations", :force => true do |t|
     t.integer  "package_id"
-    t.string   "name"
     t.string   "description"
     t.string   "rule_type"
     t.string   "rule_parameter"
@@ -85,6 +76,25 @@ ActiveRecord::Schema.define(:version => 20100216204632) do
     t.datetime "updated_at"
     t.integer  "deployment_stage"
     t.string   "platform"
+    t.integer  "owner_id"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.string   "site"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "login",             :null => false
+    t.string   "email",             :null => false
+    t.string   "crypted_password",  :null => false
+    t.string   "password_salt",     :null => false
+    t.string   "persistence_token", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

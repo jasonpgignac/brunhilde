@@ -1,14 +1,43 @@
 <ul id="applied-package-list" class="sortable-list">
 	<% @configuration.applied_packages.each do |ap| %>
 		<li id="item_<%= ap.id %>" class="<%= cycle("even", "odd") %>">
-			<%= ap.package.name %>	
+			<%= ap.package.name %>
+			<%= link_to 	'X',
+			 				configuration_applied_package_url(@configuration, ap),
+							:confirm 	=> 'Are you sure?',
+							:remote 	=> true ,
+							:method 	=> :delete,
+							:class		=> "delete_applied_package" %>
+			<span class="handle">[handle]</span>
 		</li>
 	<% end %>
 </ul>
-<%= sortable_element "applied-package-list", 
-		:url 		=>	{
-							:action => "sort", 
-							:id => @configuration
-						},
-		:complete 	=> visual_effect(:highlight, "applied-package-list")
-%>
+
+<% content_for :javascript do %>
+	<%= javascript_tag do %>
+		$('.delete_applied_package')
+			.live("ajax:success", function(xhr, data, status) {
+				$(this).parent().hide();
+			});
+		$("#applied-package-list").sortable({
+			axis:'y',
+			dropOnEmpty:false,
+			handle:'.handle',
+			cursor:'crosshair',
+			items:'li',
+			opacity:0.4,
+			scroll:true,
+			update: function(){
+				$.ajax({
+					type: 'post',
+					data: $('#applied-package-list').sortable('serialize'),
+					dataType: 'script',
+					complete: function(request){
+						$('#applied-package-list').effect('highlight');
+					},
+					url: '/configurations/<%=@configuration.id-%>/sort'
+				})
+			}
+		})
+	<% end %>
+<% end %>

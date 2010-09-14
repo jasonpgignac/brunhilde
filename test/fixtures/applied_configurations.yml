@@ -1,7 +1,19 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+applied_configurations_test_base:
+    computer: applied_configurations_test
+    configuration: base
+    position: 1
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+default_base:
+    computer: default
+    configuration: base
+    position: 1
+
+default_sample_site:
+    computer: default
+    configuration: sample_site
+    position: 2
+    
+default_test_hosted:
+    computer: default
+    configuration: test_hosted
+    position: 3

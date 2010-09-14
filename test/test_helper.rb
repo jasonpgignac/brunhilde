@@ -1,33 +1,8 @@
 ENV["RAILS_ENV"] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-require 'test_help'
+require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
 
-class Test::Unit::TestCase
-  # Transactional fixtures accelerate your tests by wrapping each test method
-  # in a transaction that's rolled back on completion.  This ensures that the
-  # test database remains unchanged so your fixtures don't have to be reloaded
-  # between every test method.  Fewer database queries means faster tests.
-  #
-  # Read Mike Clark's excellent walkthrough at
-  #   http://clarkware.com/cgi/blosxom/2005/10/24#Rails10FastTesting
-  #
-  # Every Active Record database supports transactions except MyISAM tables
-  # in MySQL.  Turn off transactional fixtures in this case; however, if you
-  # don't care one way or the other, switching from MyISAM to InnoDB tables
-  # is recommended.
-  #
-  # The only drawback to using transactional fixtures is when you actually 
-  # need to test transactions.  Since your test is bracketed by a transaction,
-  # any transactions started in your code will be automatically rolled back.
-  self.use_transactional_fixtures = true
-
-  # Instantiated fixtures are slow, but give you @david where otherwise you
-  # would need people(:david).  If you don't want to migrate your existing
-  # test cases which use the @david style and don't mind the speed hit (each
-  # instantiated fixtures translates to a database query per test method),
-  # then set this back to true.
-  self.use_instantiated_fixtures  = false
-
+class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
@@ -35,4 +10,56 @@ class Test::Unit::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def valid_computer(mac="12345678")
+    Computer.new(:mac_address => mac, :name => mac, :platform => "PC")
+  end
+  def valid_configuration(name="Test Configuration")
+    Configuration.new(:name => name, :platform => "PC")
+  end
+  def valid_hosted_configuration
+    host = valid_computer("host_computer")
+    c = Configuration.new(:name => "Hosted Configuration", :platform => "PC", :host_computer => valid_computer("host_computer"))
+    c.computers << c.host_computer
+    return c
+  end
+  def valid_package(name="Brunhilde")
+    Package.new(
+      :name => name, 
+      :source_path => "stitchbound/#{name}",
+      :deployment_stage => "1",
+      :executable => "install.bat", 
+      :platform => "PC")
+  end
+  def valid_package_hash(name="Brunhilde")
+    {
+      :name => name, 
+      :source_path => "stitchbound/#{name}",
+      :deployment_stage => "1",
+      :executable => "install.bat", 
+      :platform => "PC"
+    }
+  end
+  def valid_install_validation
+    InstallValidation.new(
+      :package        => valid_package,
+      :description    => "Test Rule",
+      :rule_type      => "ExecRunning",
+      :rule_parameter => "Test Data",
+      :success_value  => true)
+  end
+  def unattached_install_validation_reaction
+    InstallValidationReaction.new(
+      :command      => "wait",
+      :parameter    => "30",
+      :repetitions  => 3)
+  end
+  def valid_install_validation_reaction
+    vr = unattached_install_validation_reaction
+    vr.install_validation = valid_install_validation
+    return vr
+  end
+  def valid_applied_configuration
+    AppliedConfiguration.new(:configuration => valid_configuration, :computer => valid_computer)
+  end
+  
 end

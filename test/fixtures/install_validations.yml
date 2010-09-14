@@ -1,0 +1,13 @@
+acrobat_has_file:
+    description: Acrobat has the acrobat.exe file
+    package: acrobat
+    rule_type: "FileExists"
+    rule_parameter: "c:\program files\Adobe Acrobat 7\acrobat.exe"
+    success_value: true
+    
+office_has_file: 
+    description: Office has the word.exe file
+    package: office
+    rule_type: "FileExists"
+    rule_parameter: "c:\program files\Office\word.exe"
+    success_value: true

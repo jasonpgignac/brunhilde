@@ -1,14 +1,25 @@
 <h1>New package</h1>
 
-<% form_for(@package) do |f| %>
+<%= form_for(@package) do |f| %>
   <%= f.error_messages %>
 
-  <p>
 		<table>
 			<tr>
 				<td>Name</td>
 				<td><%= f.text_field(:name)%></td>
 			</tr>
+			<tr>
+				<td>Platform</td>
+				<td>
+					<table>
+					<% PLATFORMS.each do |platform| %>
+						<tr>
+							<td><%= f.radio_button(:platform, platform)%></td>
+							<td><%= f.label(:platform, platform) %></td>
+						</tr>
+					<% end %>
+					</table>
+				</td>
 			<tr>
 				<td>Licensed</td>
 				<td><%= f.check_box(:licensed)%></td>
@@ -16,8 +27,16 @@
 			<tr>
 				<td>Stage</td>
 				<td>
-					<%= f.radio_button(:deployment_stage, 0)%> Prescript<br />
-					<%= f.radio_button(:deployment_stage, 1)%> Postscript
+					<table>
+						<tr>
+							<td><%= f.radio_button(:deployment_stage, 0)%></td>
+							<td><%= f.label(:deployment_stage, "Prescript") %></td>
+						</tr>
+						<tr>
+							<td><%= f.radio_button(:deployment_stage, 1)%></td> 
+							<td><%= f.label(:deployment_stage, "Postscript") %></td>
+						<tr>
+					</table>
 				</td>
 			</tr>
 			
@@ -31,7 +50,6 @@
 			</tr>
 		</table>
     <%= f.submit "Create" %>
-  </p>
 <% end %>
 
 <%= link_to 'Back', packages_path %>

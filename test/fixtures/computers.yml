@@ -1,7 +1,9 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+default:
+    mac_address: default
+    name: Default Image
+    platform: PC
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+applied_configurations_test:
+    mac_address: applied_configurations_test
+    name: Applied Configuration Test
+    platform: PC

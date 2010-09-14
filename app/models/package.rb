@@ -1,7 +1,13 @@
 require 'csv'
 class Package < ActiveRecord::Base
   has_many  :applied_packages,  :dependent => :destroy
-  has_many  :package_tests,     :order => :position
+  has_many  :install_validations
+  belongs_to :owner, :class_name => "User"
+  
+  validates_presence_of :name, :source_path, :executable, :platform, :deployment_stage
+  validates_inclusion_of :platform, :in => PLATFORMS, :if => :platform
+  validates_inclusion_of :deployment_stage, :in => DEPLOYMENT_STAGES, :if => :deployment_stage
+  accepts_nested_attributes_for :install_validations, :allow_destroy => true
   
   def self.search(query)
      if !query.to_s.strip.empty?
@@ -63,4 +69,6 @@ class Package < ActiveRecord::Base
     end
     return new_script
   end
+
+
 end

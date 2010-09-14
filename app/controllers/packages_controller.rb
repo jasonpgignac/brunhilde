@@ -1,10 +1,12 @@
 class PackagesController < ApplicationController
+  before_filter :set_current_tab
   
   # GET /packages
   # GET /packages.xml
   def index
     if params[:query]
       @packages = Package.search(params[:query])
+      @query = params[:query]
     else
       @packages = Package.find(:all)
     end
@@ -12,6 +14,7 @@ class PackagesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @packages }
+      format.json { render :json => @packages }
     end
   end
 
@@ -46,7 +49,7 @@ class PackagesController < ApplicationController
   # POST /packages.xml
   def create
     @package = Package.new(params[:package])
-
+    @package.owner = current_user
     respond_to do |format|
       if @package.save
         flash[:notice] = 'Package was successfully created.'
@@ -83,10 +86,14 @@ class PackagesController < ApplicationController
     @package.destroy
 
     respond_to do |format|
+      flash[:notice] = "Package was successfully destroyed"
       format.html { redirect_to(packages_url) }
       format.xml  { head :ok }
     end
   end
 
-  
+  private
+    def set_current_tab
+      @current_tab = "packages"
+    end
 end

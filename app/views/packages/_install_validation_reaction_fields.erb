@@ -1,0 +1,7 @@
+<div class="install_validation_reaction fields">
+	<%= f.label :command %> <%= f.select( :command, DESCRIPTION_FOR_COMMAND_TYPE.map{ |value, display| [display, value]})%>
+	<%= f.label :parameter %> <%= f.text_field :parameter %>
+	<%= f.hidden_field :id %>
+	<%= f.hidden_field :_destroy %>
+	<%= link_to_function "Remove", "remove_fields(this)" %>
+</div>
