@@ -109,13 +109,17 @@ class Computer < ActiveRecord::Base
                   ":pingwait",
                   "setLocal EnableDelayedExpansion",
                   "ping 10.133.16.35 | find \"Reply\" > nul",
+                  "ping 10.133.16.35 | find \"Reply\" > nul",
+                  "ping 10.133.16.35 | find \"Reply\" > nul",
                   "if errorlevel 1 (",
                   "echo Waiting...",
                   "goto :pingwait)",
-                  "goto :phase%BRUNHILDEPHASE%",
-                  "",
                   "NET USE S: %BRUNHILDE_REPO_SRV% P@scpcs1nst /USER:PEROOT\\svc-eduhassatinst001",
-                  "SET BRUNHILDE_REPO_SRV=S:"]
+                  "if errorlevel 1 (",
+                  "echo Netowrk Not found",
+                  "goto :pingwait)",
+                  "SET BRUNHILDE_REPO_SRV=S:",
+                  "goto :phase%BRUNHILDEPHASE%"]
   end
   def pc_postscript_suffix
     suffix = [

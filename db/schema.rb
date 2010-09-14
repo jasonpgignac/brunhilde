@@ -10,30 +10,29 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20100714145540) do
-
   create_table "applied_configurations", :force => true do |t|
-    t.integer  "configuration_id"
-    t.integer  "computer_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "position"
+    t.integer  "configuration_id", :null => false
+    t.integer  "computer_id",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "position",         :null => false
   end
 
   create_table "applied_packages", :force => true do |t|
-    t.integer  "package_id"
-    t.integer  "configuration_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "position"
+    t.integer  "package_id",       :null => false
+    t.integer  "configuration_id", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "position",         :null => false
   end
 
   create_table "computers", :force => true do |t|
-    t.string   "mac_address"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "platform"
-    t.integer  "owner_id"
+    t.string   "mac_address", :null => false
+    t.string   "name",        :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "platform",    :null => false
+    t.integer  "owner_id",    :null => false
   end
 
   create_table "configurations", :force => true do |t|
@@ -68,23 +67,23 @@ ActiveRecord::Schema.define(:version => 20100714145540) do
   end
 
   create_table "packages", :force => true do |t|
-    t.string   "name"
-    t.boolean  "licensed"
-    t.string   "source_path"
-    t.string   "executable"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "deployment_stage"
-    t.string   "platform"
-    t.integer  "owner_id"
+    t.string   "name",             :null => false
+    t.boolean  "licensed",         :null => false
+    t.string   "source_path",      :null => false
+    t.string   "executable",       :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "deployment_stage", :null => false
+    t.string   "platform",         :null => false
+    t.integer  "owner_id",         :null => false
   end
 
   create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.string   "site"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "name",       :null => false
+    t.string   "site",       :null => false
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -93,8 +92,8 @@ ActiveRecord::Schema.define(:version => 20100714145540) do
     t.string   "crypted_password",  :null => false
     t.string   "password_salt",     :null => false
     t.string   "persistence_token", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
 end
