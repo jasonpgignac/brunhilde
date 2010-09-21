@@ -1,6 +1,6 @@
 set :application, "Brunhilde"
 default_run_options[:pty] = true
-set :repository,  "git@github.com:jasonpgignac/brunhilde.git"
+set :repository,  "http://github.com/jasonpgignac/brunhilde.git"
 set :scm, "git"
 set :scm_passphrase, "lamia6713"
 set :user, "ptadmin"

@@ -4,6 +4,7 @@ gem 'rails', '3.0.0'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'capistrano'
 gem 'authlogic'
+gem 'acts_as_list'
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri', '1.4.1'
