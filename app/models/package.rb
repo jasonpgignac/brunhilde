@@ -60,7 +60,6 @@ class Package < ActiveRecord::Base
   def test_install_script
     new_script = Array.new
     install_validations.each do |test|
-      new_script << "REM Test Name: " + test.name
       new_script << "REM Test Description: " + test.description
       new_script << "echo " + test.to_csv + " >> c:\\brunhilde\\pending_tests.txt"
       test.install_validation_reactions.each do |action|
