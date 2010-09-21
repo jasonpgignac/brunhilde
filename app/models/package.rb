@@ -59,11 +59,11 @@ class Package < ActiveRecord::Base
   end
   def test_install_script
     new_script = Array.new
-    package_tests.each do |test|
+    install_validations.each do |test|
       new_script << "REM Test Name: " + test.name
       new_script << "REM Test Description: " + test.description
       new_script << "echo " + test.to_csv + " >> c:\\brunhilde\\pending_tests.txt"
-      test.package_test_reactions.each do |action|
+      test.install_validation_reactions.each do |action|
         new_script << "echo " + action.to_csv + " >> c:\\brunhilde\\pending_tests.txt"
       end
     end
