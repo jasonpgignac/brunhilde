@@ -24,7 +24,7 @@ Brunhilde::Application.routes.draw do |map|
   end
   resources :user_sessions
   resources :users
-  match ':controller/:action/:id/'
+  match ':controller/:action/:id.:format'
   match "login" => "user_sessions#new"
   match "logout" => "user_sessions#destroy"
 end
