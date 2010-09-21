@@ -5,7 +5,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'capistrano'
 gem 'authlogic'
 gem 'acts_as_list'
-gem 'postgres-pr'
+gem 'pg'
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri', '1.4.1'
