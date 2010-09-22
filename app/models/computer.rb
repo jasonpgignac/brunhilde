@@ -77,6 +77,7 @@ class Computer < ActiveRecord::Base
         ":suffix",
         "mkdir c:\\brunhilde",
         "copy /y x:\\brunhilde\\var.txt c:\\brunhilde",
+	"copy /y x:\\brunhilde\\var.bat c:\\brunhilde",
         "copy /y x:\\brunhilde\\postscript.bat c:\\brunhilde",
         "Shutdown -r -t 5"
       ]
