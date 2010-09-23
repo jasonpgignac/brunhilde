@@ -98,7 +98,7 @@ class Computer < ActiveRecord::Base
                   ":prefix",
                   "REM Load Environment Variables",
                   "REM --Reads each line from var.txt, and executes it",
-                  "CALL var.bat",
+                  "CALL c:\\brunhilde\\var.bat",
                   "",
                   "REM Set up BRUNHILDEPHASE variable",
                   "if [%BRUNHILDEPHASE%]==[] (",
